@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/title_search" />
+
+    <item
+        android:id="@+id/navigation_map"
+        android:icon="@drawable/ic_map"
+        android:title="@string/title_map" />
+
+    <item
+        android:id="@+id/navigation_store"
+        android:icon="@drawable/ic_store"
+        android:title="@string/title_store" />
+
+    <item android:title="Cuenta">
+        <menu>
+            <item
+                android:id="@+id/nav_perfil"
+                android:icon="@drawable/ic_perfil"
+                android:title="@string/title_perfil" />
+
+            <item
+                android:id="@+id/nav_logut"
+                android:icon="@drawable/ic_return"
+                android:title="@string/title_logout" />
+        </menu>
+    </item>
+
+</menu>

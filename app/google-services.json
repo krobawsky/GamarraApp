@@ -1,0 +1,152 @@
+{
+  "project_info": {
+    "project_number": "378008488473",
+    "firebase_url": "https://login-40842.firebaseio.com",
+    "project_id": "login-40842",
+    "storage_bucket": "login-40842.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378008488473:android:72723f1eec6e3d11",
+        "android_client_info": {
+          "package_name": "prueba.loginapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "378008488473-pafohpm0s07hjsq2l7b3bv8sijjfoqg9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "prueba.loginapp",
+            "certificate_hash": "dce53271ebbf43995515fa2017642218f3ee6fdd"
+          }
+        },
+        {
+          "client_id": "378008488473-mkfjgjcv054begqk5bkgs08auksol4ek.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFNQh_ohdGx8qU8G2Um5J96r8ZxbuYE6A"
+        },
+        {
+          "current_key": "AIzaSyB0-egm6g6kdOWVtls9kovdZ8rxVRC0cMA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "378008488473-mkfjgjcv054begqk5bkgs08auksol4ek.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378008488473:android:d9c28e8197693a72",
+        "android_client_info": {
+          "package_name": "tecsup.integrador.loginandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "378008488473-aunakr77ot7a3k5kfj56629btfjlh2db.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tecsup.integrador.loginandroid",
+            "certificate_hash": "dce53271ebbf43995515fa2017642218f3ee6fdd"
+          }
+        },
+        {
+          "client_id": "378008488473-mkfjgjcv054begqk5bkgs08auksol4ek.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFNQh_ohdGx8qU8G2Um5J96r8ZxbuYE6A"
+        },
+        {
+          "current_key": "AIzaSyB0-egm6g6kdOWVtls9kovdZ8rxVRC0cMA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "378008488473-mkfjgjcv054begqk5bkgs08auksol4ek.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378008488473:android:bed363630acf97cf",
+        "android_client_info": {
+          "package_name": "tecsup.integrador.gamarraapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "378008488473-1olk74mv39n3jm5vsk6h1gm861af0e1j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tecsup.integrador.gamarraapp",
+            "certificate_hash": "dce53271ebbf43995515fa2017642218f3ee6fdd"
+          }
+        },
+        {
+          "client_id": "378008488473-mkfjgjcv054begqk5bkgs08auksol4ek.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFNQh_ohdGx8qU8G2Um5J96r8ZxbuYE6A"
+        },
+        {
+          "current_key": "AIzaSyB0-egm6g6kdOWVtls9kovdZ8rxVRC0cMA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "378008488473-mkfjgjcv054begqk5bkgs08auksol4ek.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
