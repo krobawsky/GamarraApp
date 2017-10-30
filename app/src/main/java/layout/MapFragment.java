@@ -1,6 +1,7 @@
 package layout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import tecsup.integrador.gamarraapp.R;
+import tecsup.integrador.gamarraapp.activity.GamarraMapsActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -84,7 +86,9 @@ public class MapFragment extends Fragment {
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
-            Toast.makeText(context, "Map Fragment", Toast.LENGTH_SHORT).show();
+;
+            Intent i = new Intent(getActivity(), GamarraMapsActivity.class);
+            startActivity(i);
         }
     }
 

@@ -24,7 +24,7 @@
     <!-- Nombre de Usuario -->
     <TextView
         android:id="@+id/name"
-        android:textColor="@color/bg_login"
+        android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
@@ -36,7 +36,7 @@
     <!-- Correo de la cuenta -->
     <TextView
         android:id="@+id/email"
-        android:textColor="@color/bg_login"
+        android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="14dp"

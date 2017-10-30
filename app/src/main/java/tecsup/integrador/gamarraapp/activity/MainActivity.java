@@ -51,7 +51,6 @@ import tecsup.integrador.gamarraapp.R;
 
 import tecsup.integrador.gamarraapp.helper.SessionManager;
 
-
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, NavigationView.OnNavigationItemSelectedListener {
 
     private ImageView photoImageView;
@@ -61,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     //Datos
     private String email;
     private String name;
-    private String photo = "";
+    private String photo = "0";
 
     private GoogleApiClient googleApiClient;
 

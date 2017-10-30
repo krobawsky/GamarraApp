@@ -4,12 +4,24 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import tecsup.integrador.gamarraapp.R;
+import tecsup.integrador.gamarraapp.adapter.TiendasAdapter;
+import tecsup.integrador.gamarraapp.datos.Tienda;
+import tecsup.integrador.gamarraapp.servicios.ApiService;
+import tecsup.integrador.gamarraapp.servicios.ApiServiceGenerator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,14 +74,71 @@ public class StoreFragment extends Fragment {
         }
     }
 
+    private static final String TAG = StoreFragment.class.getSimpleName();
+
+    private RecyclerView tiendasList;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_store, container, false);
 
+        tiendasList = (RecyclerView) view.findViewById(R.id.recyclerview);
+        tiendasList.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        tiendasList.setAdapter(new TiendasAdapter(getActivity()));
+
+        initialize();
+
         return view;
     }
+
+    private void initialize() {
+
+        ApiService service = ApiServiceGenerator.createService(ApiService.class);
+
+        Call<List<Tienda>> call = service.getTiendas();
+
+        call.enqueue(new Callback<List<Tienda>>() {
+            @Override
+            public void onResponse(Call<List<Tienda>> call, Response<List<Tienda>> response) {
+                try {
+
+                    int statusCode = response.code();
+                    Log.d(TAG, "HTTP status code: " + statusCode);
+
+                    if (response.isSuccessful()) {
+
+                        List<Tienda> tiendas = response.body();
+                        Log.d(TAG, "tiendas: " + tiendas);
+
+                        TiendasAdapter adapter = (TiendasAdapter) tiendasList.getAdapter();
+                        adapter.setTiendas(tiendas);
+                        adapter.notifyDataSetChanged();
+
+                    } else {
+                        Log.e(TAG, "onError: " + response.errorBody().string());
+                        throw new Exception("Error en el servicio");
+                    }
+
+                } catch (Throwable t) {
+                    try {
+                        Log.e(TAG, "onThrowable: " + t.toString(), t);
+                        Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
+                    }catch (Throwable x){}
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Tienda>> call, Throwable t) {
+                Log.e(TAG, "onFailure: " + t.toString());
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+        });
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
