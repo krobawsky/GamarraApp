@@ -1,10 +1,6 @@
 package tecsup.integrador.gamarraapp.adapter;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,21 +10,22 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import layout.SearchFragment;
+import layout.StoreFragment;
 import tecsup.integrador.gamarraapp.R;
 import tecsup.integrador.gamarraapp.activity.DetailActivity;
-import tecsup.integrador.gamarraapp.datos.Tienda;
+import tecsup.integrador.gamarraapp.models.Tienda;
 
 public class TiendasAdapter extends RecyclerView.Adapter<TiendasAdapter.ViewHolder> {
 
+    private static final String TAG = DetailActivity.class.getSimpleName();
+
     private List<Tienda> tiendas;
 
-    private Context context;
-    private Activity activity;
-    private Tienda tienda;
+    private StoreFragment fragment;
 
-    public TiendasAdapter(FragmentActivity activity){
+    public TiendasAdapter(StoreFragment fragment){
         this.tiendas = new ArrayList<>();
+        this.fragment = fragment;
     }
 
     public void setTiendas(List<Tienda> tiendas){
@@ -54,9 +51,9 @@ public class TiendasAdapter extends RecyclerView.Adapter<TiendasAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(TiendasAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(final TiendasAdapter.ViewHolder viewHolder, int position) {
 
-        tienda = this.tiendas.get(position);
+        final Tienda tienda = this.tiendas.get(position);
 
         viewHolder.nombreText.setText(tienda.getNombre());
         viewHolder.telefonoText.setText(tienda.getTelefono());
@@ -65,9 +62,9 @@ public class TiendasAdapter extends RecyclerView.Adapter<TiendasAdapter.ViewHold
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(context, DetailActivity.class);
+                Intent intent = new Intent(fragment.getActivity(), DetailActivity.class);
                 intent.putExtra("ID", tienda.getId());
-                context.startActivity(intent);
+                fragment.startActivity(intent);
             }
         });
 

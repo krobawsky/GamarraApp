@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +13,20 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import tecsup.integrador.gamarraapp.R;
+import tecsup.integrador.gamarraapp.models.Categoria;
+import tecsup.integrador.gamarraapp.servicios.ApiService;
+import tecsup.integrador.gamarraapp.servicios.ApiServiceGenerator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,30 +47,6 @@ public class SearchFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-
-    private static List<String> categorias = new ArrayList<>();
-
-    static{
-        categorias.add("Ropa para damas");
-        categorias.add("Ropa para caballeros");
-        categorias.add("Ropa para niños");
-        categorias.add("Ropa para bebés");
-        categorias.add("Uniformes para empresas");
-        categorias.add("Ropa industrial");
-        categorias.add("Ropa publicitaria");
-        categorias.add("Confección");
-        categorias.add("Estampado");
-        categorias.add("Bordado");
-        categorias.add("Sublimado");
-        categorias.add("Moldes y patronaje");
-        categorias.add("Telas");
-        categorias.add("Insumos");
-    }
-
-    private ListView listview;
-    private SearchView searchView;
-    private ArrayAdapter<String> adapter;
-    private String valor;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -95,6 +79,14 @@ public class SearchFragment extends Fragment {
         }
     }
 
+    private static final String TAG = SearchFragment.class.getSimpleName();
+
+    private ListView listview;
+    private SearchView searchView;
+    private List<String> values;
+    private List<Categoria> categoriaTiendas;
+    private ArrayAdapter<String> adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -104,14 +96,56 @@ public class SearchFragment extends Fragment {
         listview = (ListView) view.findViewById(R.id.listview);
         searchView = (SearchView) view.findViewById(R.id.searchview);
 
-        adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1 , categorias);
-
         //Lista
-        listview.setAdapter(adapter);
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ApiService service = ApiServiceGenerator.createService(ApiService.class);
+        Call<List<Categoria>> call = service.getCategoriaTienda();
+
+        call.enqueue(new Callback<List<Categoria>>() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(view.getContext(), adapter.getItem(position) + " seleccionado!", Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<List<Categoria>> call, Response<List<Categoria>> response) {
+                try {
+
+                    int statusCode = response.code();
+                    Log.d(TAG, "HTTP status code: " + statusCode);
+
+                    if (response.isSuccessful()) {
+
+                        categoriaTiendas = response.body();
+                        Log.d(TAG, "categoriaTienda: " + categoriaTiendas);
+
+                        values = new ArrayList<>();
+
+                        for (Categoria categoria : categoriaTiendas) {
+                            values.add(categoria.getNombre());
+                        }
+
+                        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1 , values);
+                        listview.setAdapter(adapter);
+
+                        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Toast.makeText(view.getContext(), adapter.getItem(position) + " seleccionado!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    } else {
+                        Log.e(TAG, "onError: " + response.errorBody().string());
+                        throw new Exception("Error en el servicio");
+                    }
+
+                } catch (Throwable t) {
+                    try {
+                        Log.e(TAG, "onThrowable: " + t.toString(), t);
+                        Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
+                    }catch (Throwable x){}
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Categoria>> call, Throwable t) {
+                Log.e(TAG, "onFailure: " + t.toString());
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 

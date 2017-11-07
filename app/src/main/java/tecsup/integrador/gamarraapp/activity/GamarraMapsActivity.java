@@ -1,9 +1,13 @@
 package tecsup.integrador.gamarraapp.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -13,6 +17,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -22,7 +27,7 @@ import layout.StoreFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import tecsup.integrador.gamarraapp.R;
-import tecsup.integrador.gamarraapp.datos.Tienda;
+import tecsup.integrador.gamarraapp.models.Tienda;
 import tecsup.integrador.gamarraapp.servicios.ApiService;
 import tecsup.integrador.gamarraapp.servicios.ApiServiceGenerator;
 
@@ -30,6 +35,7 @@ public class GamarraMapsActivity extends FragmentActivity implements OnMapReadyC
 
     private static final String TAG = StoreFragment.class.getSimpleName();
 
+    private List<Tienda> tiendas;
     private GoogleMap mMap;
 
     @Override
@@ -95,7 +101,7 @@ public class GamarraMapsActivity extends FragmentActivity implements OnMapReadyC
 
                         if (response.isSuccessful()) {
 
-                            List<Tienda> tiendas = response.body();
+                            final List<Tienda> tiendas = response.body();
                             Log.d(TAG, "tiendas: " + tiendas);
 
                             for (Tienda tienda : tiendas) {
@@ -105,9 +111,38 @@ public class GamarraMapsActivity extends FragmentActivity implements OnMapReadyC
                                 Log.d(TAG, "LatLng: " + latitudDouble + " , " + longitudDouble);
 
                                 LatLng gamarraTienda = new LatLng(latitudDouble, longitudDouble);
-                                mMap.addMarker(new MarkerOptions().position(gamarraTienda).title(tienda.getNombre()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-
+                                mMap.addMarker(new MarkerOptions().position(gamarraTienda).
+                                        title(tienda.getNombre()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                             }
+
+                            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                @Override
+                                public boolean onMarkerClick(final Marker marker) {
+                                    final String title = marker.getTitle();
+                                    Snackbar snackbar = Snackbar
+                                            .make(findViewById(R.id.map), "Desea ver mas detalles de " +title, Snackbar.LENGTH_LONG)
+                                            .setAction("Ver", new View.OnClickListener(){
+                                                @Override
+                                                public void onClick(View view) {
+
+                                                    for (Tienda tienda : tiendas) {
+
+                                                        if(tienda.getNombre().equalsIgnoreCase(title)){
+                                                            Log.d(TAG, "marker_id: " + tienda.getId());
+                                                            Intent intent = new Intent(GamarraMapsActivity.this, DetailActivity.class);
+                                                            intent.putExtra("ID", tienda.getId());
+                                                            startActivity(intent);
+                                                        }
+                                                    }
+                                                }
+                                            });
+
+                                    snackbar.show();
+
+                                    return false;
+                                }
+                            });
+
 
                         } else {
                             Log.e(TAG, "onError: " + response.errorBody().string());

@@ -1,4 +1,4 @@
-package tecsup.integrador.gamarraapp.datos;
+package tecsup.integrador.gamarraapp.models;
 
 public class Tienda {
 

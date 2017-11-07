@@ -19,7 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import tecsup.integrador.gamarraapp.R;
 import tecsup.integrador.gamarraapp.adapter.TiendasAdapter;
-import tecsup.integrador.gamarraapp.datos.Tienda;
+import tecsup.integrador.gamarraapp.models.Tienda;
 import tecsup.integrador.gamarraapp.servicios.ApiService;
 import tecsup.integrador.gamarraapp.servicios.ApiServiceGenerator;
 
@@ -87,7 +87,7 @@ public class StoreFragment extends Fragment {
         tiendasList = (RecyclerView) view.findViewById(R.id.recyclerview);
         tiendasList.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        tiendasList.setAdapter(new TiendasAdapter(getActivity()));
+        tiendasList.setAdapter(new TiendasAdapter(this));
 
         initialize();
 
