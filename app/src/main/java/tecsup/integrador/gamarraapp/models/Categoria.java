@@ -1,16 +1,26 @@
 package tecsup.integrador.gamarraapp.models;
 
+import com.orm.dsl.Table;
+
+@Table
 public class Categoria {
 
-    private Integer id;
+    private Long id;
     private String nombre;
     private String estado;
 
-    public Integer getId() {
+    public Categoria(){}
+
+    public Categoria(Long id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

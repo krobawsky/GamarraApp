@@ -1,79 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:fab="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="16dp"
         android:clickable="true"
         android:focusable="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/backbtn"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:backgroundTint="@color/white"
+                fab:srcCompat="@drawable/ic_return" />
 
             <LinearLayout
                 android:id="@+id/line1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:padding="16dp"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_margin="16dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/foto_image"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
-                        android:layout_centerVertical="true"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
                         android:adjustViewBounds="true"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_store" />
+                        android:layout_margin="16dp"
+                        android:src="@drawable/img_store2" />
 
-
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/txtNombre"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:padding="10dp"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        tools:text="Nombre de la tienda"/>
 
-                        <TextView
-                            android:id="@+id/txtNombre"
-                            android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp">
+
+                        <ImageButton
+                            android:id="@+id/add_btn"
+                            android:backgroundTint="@color/white"
                             android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            app:srcCompat="@drawable/ic_create"
                             android:layout_alignParentStart="true"
-                            android:layout_below="@+id/foto_image"
-                            android:padding="10dp"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            tools:text="Nombre de la tienda"/>
+                            style="@style/Widget.AppCompat.ImageButton"/>
 
                         <TextView
                             android:id="@+id/txtNumero"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginBottom="5dp"
+                            android:textSize="16sp"
+                            android:layout_centerVertical="true"
+                            tools:text="Numero "
                             android:textStyle="bold"
-                            tools:text="Numero de la tienda"/>
+                            android:layout_toEndOf="@+id/add_btn"
+                            android:layout_toStartOf="@+id/sms_btn"/>
 
-                        <TextView
-                            android:id="@+id/txtPuesto"
-                            android:layout_width="wrap_content"
+                        <ImageButton
+                            android:id="@+id/call_btn"
+                            android:backgroundTint="@color/white"
                             android:layout_height="wrap_content"
-                            android:textSize="16dp"
-                            android:layout_marginStart="10dp"
-                            tools:text="Puesto de la tienda"/>
+                            android:layout_width="wrap_content"
+                            app:srcCompat="@drawable/ic_call"
+                            android:layout_alignParentEnd="true"
+                            style="@style/Widget.AppCompat.ImageButton" />
 
-                    </LinearLayout>
+                        <ImageButton
+                            android:id="@+id/sms_btn"
+                            android:backgroundTint="@color/white"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            app:srcCompat="@drawable/ic_sms"
+                            style="@style/Widget.AppCompat.ImageButton"
+                            android:layout_alignParentTop="true"
+                            android:layout_toStartOf="@+id/call_btn" />
+
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/txtPuesto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18dp"
+                        tools:text="Puesto de la tienda"/>
 
                 </LinearLayout>
 
@@ -102,35 +140,78 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18dp"
-                    android:layout_marginTop="16dp"
                     android:layout_marginStart="16dp"
-                    tools:text="categoria1, categoria2, ..."/>
+                    android:layout_marginTop="16dp"
+                    android:textSize="18dp"
+                    tools:text="categoria1, categoria2, ..." />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <ListView
-                        android:id="@+id/listview"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
 
             </LinearLayout>
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/floatingBtnMap"
+            <com.github.clans.fab.FloatingActionMenu
+                android:id="@+id/menuFAB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/line1"
-                android:onClick="showRegister"
-                android:src="@android:drawable/ic_dialog_map" />
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                fab:menu_animationDelayPerItem="55"
+                fab:menu_backgroundColor="@android:color/transparent"
+                fab:menu_buttonSpacing="0dp"
+                fab:menu_colorNormal="#da3c2f"
+                fab:menu_colorPressed="#dc4b3f"
+                fab:menu_colorRipple="#99d4d4d4"
+                fab:menu_fab_size="normal"
+                fab:menu_icon="@drawable/fab_add"
+                fab:menu_labels_colorNormal="#333"
+                fab:menu_labels_colorPressed="#444"
+                fab:menu_labels_colorRipple="#66efecec"
+                fab:menu_labels_cornerRadius="3dp"
+                fab:menu_labels_ellipsize="none"
+                fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+                fab:menu_labels_margin="0dp"
+                fab:menu_labels_maxLines="-1"
+                fab:menu_labels_padding="8dp"
+                fab:menu_labels_position="left"
+                fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+                fab:menu_labels_showShadow="true"
+                fab:menu_labels_singleLine="false"
+                fab:menu_labels_textColor="#f2f1f1"
+                fab:menu_labels_textSize="15sp"
+                fab:menu_openDirection="up"
+                fab:menu_shadowColor="#66aff198"
+                fab:menu_shadowRadius="4dp"
+                fab:menu_shadowXOffset="1dp"
+                fab:menu_shadowYOffset="4dp"
+                fab:menu_showShadow="true">
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/floatingBtnPerfil"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@android:drawable/ic_dialog_map"
+                    fab:fab_label="Perfil"
+                    fab:fab_size="mini" />
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/floatingBtnMap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@android:drawable/ic_dialog_map"
+                    fab:fab_label="Map"
+                    fab:fab_size="mini" />
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/floatingBtnProductos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@android:drawable/ic_dialog_map"
+                    fab:fab_label="Productos"
+                    fab:fab_size="mini" />
+            </com.github.clans.fab.FloatingActionMenu>
+
 
         </RelativeLayout>
 

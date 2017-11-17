@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -34,6 +36,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private SessionManager session;
 
+    Animation downtoup;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +45,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         // session manager
         session = new SessionManager(getApplicationContext());
+
+        downtoup = AnimationUtils.loadAnimation(this,R.anim.downtoup);
 
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
@@ -61,6 +67,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .build();
 
         signInButton = (SignInButton) findViewById(R.id.signInButton);
+        signInButton.setAnimation(downtoup);
 
         signInButton.setSize(SignInButton.SIZE_WIDE);
         signInButton.setColorScheme(SignInButton.COLOR_LIGHT);
@@ -76,6 +83,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         //Facebook
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.facebook_sign_in_button);
+        loginButton.setAnimation(downtoup);
 
         loginButton.setReadPermissions("email");
 
