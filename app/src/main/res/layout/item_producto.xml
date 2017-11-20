@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:focusable="true"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:id="@+id/foto_layout"
+            android:background="@color/colorAccent"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="16dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/foto_image"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                app:srcCompat="@drawable/img_item" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/nombre_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/foto_layout"
+            android:text="Nombre del producto"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/precio_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nombre_text"
+            android:layout_marginBottom="8dp"
+            android:layout_toEndOf="@+id/foto_layout"
+            android:text="S/. 200.00"
+            android:textSize="14dp" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

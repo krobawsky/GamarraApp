@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,53 +6,78 @@
     tools:context="layout.PerfilFragment"
     android:padding="16dp">
 
-    <!-- TODO: Update blank fragment layout -->
 
-    <!-- Imagen de perfil -->
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageView"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/img_hombre"
-        app:civ_border_color="@color/colorPrimaryDark"
-        app:civ_border_width="2dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="90dp"/>
-
-    <!-- Nombre de Usuario -->
-    <TextView
-        android:id="@+id/name"
-        android:textColor="@color/colorNav1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        tools:text="Ricardo Daniel Berrospi Quispe"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"/>
-
-    <!-- Correo de la cuenta -->
-    <TextView
-        android:id="@+id/email"
-        android:textColor="@color/colorNav1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18dp"
-        tools:text="ricardo.berrospi@tescup.edu.pe"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp"/>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="70dp"
-        android:layout_gravity="bottom"
-        android:src="@drawable/img_gamarra_city2"/>
-
-    <ImageView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:src="@drawable/img_colorbar"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:weightSum="1">
 
-</FrameLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/clothing2" />
+
+            <!-- Imagen de perfil -->
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageView"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="120dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_hombre"
+                app:civ_border_color="@color/colorPrimaryDark"
+                app:civ_border_width="2dp" />
+
+        </RelativeLayout>
+
+        <!-- Nombre de Usuario -->
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/colorNav1"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            tools:text="Ricardo Daniel Berrospi Quispe" />
+
+        <!-- Correo de la cuenta -->
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/colorNav1"
+            android:textSize="16dp"
+            tools:text="ricardo.berrospi@tescup.edu.pe" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/img_gamarra_city2" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

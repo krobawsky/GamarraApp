@@ -17,13 +17,9 @@
             android:background="@color/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/img_colorbar" />
-
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_home_usuario" />
+
 
 </android.support.design.widget.CoordinatorLayout>

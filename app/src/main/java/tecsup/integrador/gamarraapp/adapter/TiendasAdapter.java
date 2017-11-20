@@ -2,7 +2,6 @@ package tecsup.integrador.gamarraapp.adapter;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +14,17 @@ import java.util.List;
 
 import layout.StoreFragment;
 import tecsup.integrador.gamarraapp.R;
-import tecsup.integrador.gamarraapp.activity.DetailActivity;
+import tecsup.integrador.gamarraapp.activity.TiendaActivity;
 import tecsup.integrador.gamarraapp.models.Tienda;
 
 public class TiendasAdapter extends RecyclerView.Adapter<TiendasAdapter.ViewHolder> implements Filterable {
 
-    private static final String TAG = DetailActivity.class.getSimpleName();
+    private static final String TAG = TiendaActivity.class.getSimpleName();
 
     private List<Tienda> tiendas;
     public ArrayList<Tienda> filterList;
+
+    private Filter fRecords;
 
     private StoreFragment fragment;
 
@@ -66,7 +67,7 @@ public class TiendasAdapter extends RecyclerView.Adapter<TiendasAdapter.ViewHold
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(fragment.getActivity(), DetailActivity.class);
+                Intent intent = new Intent(fragment.getActivity(), TiendaActivity.class);
                 intent.putExtra("ID", tienda.getId());
                 fragment.startActivity(intent);
             }
@@ -78,8 +79,6 @@ public class TiendasAdapter extends RecyclerView.Adapter<TiendasAdapter.ViewHold
     public int getItemCount() {
         return this.tiendas.size();
     }
-
-    private Filter fRecords;
 
     @Override
     public Filter getFilter() {

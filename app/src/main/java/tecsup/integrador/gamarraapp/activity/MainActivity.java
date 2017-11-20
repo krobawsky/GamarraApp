@@ -1,5 +1,7 @@
 package tecsup.integrador.gamarraapp.activity;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -30,17 +32,19 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.maps.SupportMapFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import layout.MapFragment;
 import layout.PerfilFragment;
-import layout.SearchFragment;
+import layout.ProductsFragment;
 import layout.StoreFragment;
 import tecsup.integrador.gamarraapp.R;
 
@@ -62,37 +66,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private ProfileTracker profileTracker;
 
     private SessionManager session;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-
-                case R.id.navigation_search:
-                    SearchFragment searchFragment = new SearchFragment();
-                    FragmentTransaction transaction1 = getSupportFragmentManager().beginTransaction();
-                    transaction1.replace(R.id.content, searchFragment);
-                    transaction1.commit();
-                    return true;
-                case R.id.navigation_map:
-                    MapFragment mapFragment = new MapFragment();
-                    FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
-                    transaction2.replace(R.id.content, mapFragment);
-                    transaction2.commit();
-                    return true;
-                case R.id.navigation_store:
-                    StoreFragment storeFragment = new StoreFragment();
-                    FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
-                    transaction3.replace(R.id.content, storeFragment);
-                    transaction3.commit();
-                    return true;
-            }
-            return false;
-        }
-
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -286,7 +259,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         int id = item.getItemId();
 
         if (id == R.id.navigation_search) {
-            SearchFragment searchFragment = new SearchFragment();
+            ProductsFragment searchFragment = new ProductsFragment();
             FragmentTransaction transaction1 = getSupportFragmentManager().beginTransaction();
             transaction1.replace(R.id.content, searchFragment);
             transaction1.commit();

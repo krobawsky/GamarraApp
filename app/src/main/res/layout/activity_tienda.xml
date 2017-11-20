@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     xmlns:fab="http://schemas.android.com/apk/res-auto">
 
     <android.support.v7.widget.CardView
@@ -26,12 +27,23 @@
                 android:backgroundTint="@color/white"
                 fab:srcCompat="@drawable/ic_return" />
 
+            <ImageButton
+                android:id="@+id/listbtn"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:backgroundTint="@color/white"
+                fab:srcCompat="@drawable/ic_list" />
+
             <LinearLayout
                 android:id="@+id/line1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="16dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -42,8 +54,8 @@
 
                     <ImageView
                         android:id="@+id/foto_image"
-                        android:layout_width="140dp"
-                        android:layout_height="140dp"
+                        android:layout_width="180dp"
+                        android:layout_height="180dp"
                         android:adjustViewBounds="true"
                         android:scaleType="centerCrop"
                         android:layout_margin="16dp"
@@ -77,7 +89,7 @@
                             android:id="@+id/txtNumero"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
+                            android:textSize="16dp"
                             android:layout_centerVertical="true"
                             tools:text="Numero "
                             android:textStyle="bold"
@@ -107,6 +119,14 @@
                     </RelativeLayout>
 
                     <TextView
+                        android:id="@+id/txtUbicacion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:textSize="18dp"
+                        tools:text="Ubicacion de la tienda"/>
+
+                    <TextView
                         android:id="@+id/txtPuesto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -117,37 +137,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="18dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginStart="16dp"
-                        android:text="Categorias:"/>
-
-                    <TextView
-                        android:id="@+id/txtCategorias"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="18dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginStart="10dp"
-                        tools:text="No tiene"/>
-
+                    android:layout_height="90dp">
                 </LinearLayout>
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:textSize="18dp"
-                    tools:text="categoria1, categoria2, ..." />
-
 
             </LinearLayout>
 
@@ -191,7 +182,7 @@
                     android:id="@+id/floatingBtnPerfil"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@android:drawable/ic_dialog_map"
+                    android:src="@drawable/ic_man_user"
                     fab:fab_label="Perfil"
                     fab:fab_size="mini" />
 
@@ -200,18 +191,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@android:drawable/ic_dialog_map"
-                    fab:fab_label="Map"
+                    fab:fab_label="Mapa"
                     fab:fab_size="mini" />
 
                 <com.github.clans.fab.FloatingActionButton
                     android:id="@+id/floatingBtnProductos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@android:drawable/ic_dialog_map"
+                    android:src="@drawable/ic_t_shirt"
                     fab:fab_label="Productos"
                     fab:fab_size="mini" />
             </com.github.clans.fab.FloatingActionMenu>
-
 
         </RelativeLayout>
 

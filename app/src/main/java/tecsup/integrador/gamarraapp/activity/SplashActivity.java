@@ -17,6 +17,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import tecsup.integrador.gamarraapp.R;
 import tecsup.integrador.gamarraapp.models.Categoria;
+import tecsup.integrador.gamarraapp.models.Categoria2;
 import tecsup.integrador.gamarraapp.models.CategoriaRepository;
 import tecsup.integrador.gamarraapp.servicios.ApiService;
 import tecsup.integrador.gamarraapp.servicios.ApiServiceGenerator;
@@ -55,8 +56,8 @@ public class SplashActivity extends AppCompatActivity {
 
         ApiService service = ApiServiceGenerator.createService(ApiService.class);
 
-        Call<List<Categoria>> call2 = service.getCategoriaTienda();
-        call2.enqueue(new Callback<List<Categoria>>() {
+        Call<List<Categoria>> call = service.getCategoriaTienda();
+        call.enqueue(new Callback<List<Categoria>>() {
             @Override
             public void onResponse(Call<List<Categoria>> call, Response<List<Categoria>> response) {
                 try {
@@ -70,11 +71,11 @@ public class SplashActivity extends AppCompatActivity {
 
                         for(Categoria categoria: categoriasTienda){
                             //CategoriaRepository.delete(categoria.getId());
-                            CategoriaRepository.create(categoria.getId(), categoria.getNombre());
+                            CategoriaRepository.createCategoriasTienda(categoria.getId(), categoria.getNombre());
 
                         }
 
-                        List<Categoria> categorias = CategoriaRepository.list();
+                        List<Categoria> categorias = CategoriaRepository.listCategoriasTienda();
                         Log.d(TAG, "categoriasTiendaORM: " + categorias.toString());
 
                     } else {
@@ -85,7 +86,7 @@ public class SplashActivity extends AppCompatActivity {
                 } catch (Throwable t) {
                     try {
                         Log.e(TAG, "onThrowable: " + t.toString(), t);
-                        Toast.makeText(SplashActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(SplashActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
                     }catch (Throwable x){}
                 }
             }
@@ -93,7 +94,49 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Categoria>> call, Throwable t) {
                 Log.e(TAG, "onFailure: " + t.toString());
-                Toast.makeText(SplashActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(SplashActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        Call<List<Categoria>> call2 = service.getCategoriaProducto();
+        call2.enqueue(new Callback<List<Categoria>>() {
+            @Override
+            public void onResponse(Call<List<Categoria>> call, Response<List<Categoria>> response) {
+                try {
+
+                    int statusCode = response.code();
+                    Log.d(TAG, "HTTP status code: " + statusCode);
+
+                    if (response.isSuccessful()) {
+                        List<Categoria> categoriasProducto = response.body();
+                        Log.d(TAG, "categoriasProducto: " + categoriasProducto);
+
+                        for(Categoria categoria: categoriasProducto){
+                            //CategoriaRepository.delete(categoria.getId());
+                            CategoriaRepository.createCategoriasProducto(categoria.getId(), categoria.getNombre());
+
+                        }
+
+                        List<Categoria2> categorias = CategoriaRepository.listCategoriasProducto();
+                        Log.d(TAG, "categoriasProductoORM: " + categorias.toString());
+
+                    } else {
+                        Log.e(TAG, "onError: " + response.errorBody().string());
+                        throw new Exception("Error en el servicio");
+                    }
+
+                } catch (Throwable t) {
+                    try {
+                        Log.e(TAG, "onThrowable: " + t.toString(), t);
+                        //Toast.makeText(SplashActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                    }catch (Throwable x){}
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Categoria>> call, Throwable t) {
+                Log.e(TAG, "onFailure: " + t.toString());
+                //Toast.makeText(SplashActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

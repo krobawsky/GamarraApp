@@ -6,24 +6,26 @@ import java.util.List;
 
 public class CategoriaRepository {
 
-    public static List<Categoria> list(){
-        List<Categoria> categorias = SugarRecord.listAll(Categoria.class);
-        return categorias;
+    public static List<Categoria> listCategoriasTienda(){
+        List<Categoria> categoriasTienda = SugarRecord.listAll(Categoria.class);
+        return categoriasTienda;
     }
 
-    public static Categoria read(Long id){
-        Categoria categoria = SugarRecord.findById(Categoria.class, id);
-        return categoria;
+    public static void createCategoriasTienda(Long id, String nombre){
+        Categoria categoriasTienda = new Categoria(id, nombre);
+        SugarRecord.save(categoriasTienda);
     }
 
-    public static void create(Long id, String nombre){
-        Categoria categoria = new Categoria(id, nombre);
-        SugarRecord.save(categoria);
+
+    public static List<Categoria2> listCategoriasProducto(){
+        List<Categoria2> categoriasProducto = SugarRecord.listAll(Categoria2.class);
+        return categoriasProducto;
     }
 
-    public static void delete(Long id){
-        Categoria categoria = SugarRecord.findById(Categoria.class, id);
-        SugarRecord.delete(categoria);
+    public static void createCategoriasProducto(Long id, String nombre){
+        Categoria2 categoriasProducto = new Categoria2(id, nombre);
+        SugarRecord.save(categoriasProducto);
     }
+
 
 }

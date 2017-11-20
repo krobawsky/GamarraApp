@@ -10,14 +10,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <com.github.clans.fab.FloatingActionButton
+    <Button
         android:id="@+id/btnCategoria"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_add_location"
-        fab:fab_size="mini"
-        android:layout_margin="10dp"
+        android:layout_height="32dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textSize="12dp"
+        android:text="Categorias"
+        android:textColor="@color/colorAccent"
+        android:background="@drawable/borde_redondo"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp" />
 
 </RelativeLayout>

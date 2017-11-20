@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="55dp">
+    android:paddingTop="54dp">
 
     <FrameLayout
         android:id="@+id/content"
@@ -15,5 +15,13 @@
         android:layout_weight="0.86">
     </FrameLayout>
 
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:scaleType="fitXY"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/img_colorbar_gruesito" />
 
 </LinearLayout>

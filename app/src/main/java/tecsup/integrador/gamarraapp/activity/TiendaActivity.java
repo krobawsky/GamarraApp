@@ -1,6 +1,9 @@
 package tecsup.integrador.gamarraapp.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -27,13 +30,16 @@ import tecsup.integrador.gamarraapp.R;
 import tecsup.integrador.gamarraapp.models.Categoria;
 import tecsup.integrador.gamarraapp.models.CategoriaRepository;
 import tecsup.integrador.gamarraapp.models.Tienda;
+import tecsup.integrador.gamarraapp.models.Usuario;
 import tecsup.integrador.gamarraapp.models.tiendaCategoria;
 import tecsup.integrador.gamarraapp.servicios.ApiService;
 import tecsup.integrador.gamarraapp.servicios.ApiServiceGenerator;
 
-public class DetailActivity extends AppCompatActivity {
+public class TiendaActivity extends AppCompatActivity {
 
-    private static final String TAG = DetailActivity.class.getSimpleName();
+    private static final String TAG = TiendaActivity.class.getSimpleName();
+
+    private ApiService service;
 
     private Integer tienda_id;
 
@@ -42,7 +48,7 @@ public class DetailActivity extends AppCompatActivity {
     private TextView telefonoTxt;
     private TextView categoriasTxt;
 
-    private ImageButton backIb;
+    private ImageButton backIb, listIb;
     private ImageButton addIb, smsIb, callIb;
 
     FloatingActionMenu materialDesignFAM;
@@ -51,20 +57,22 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_tienda);
 
         nombreTxt = (TextView) findViewById(R.id.txtNombre);
         puestoTxt = (TextView) findViewById(R.id.txtPuesto);
         telefonoTxt = (TextView) findViewById(R.id.txtNumero);
-        categoriasTxt = (TextView) findViewById(R.id.txtCategorias);
 
+        listIb = (ImageButton) findViewById(R.id.listbtn);
         backIb = (ImageButton) findViewById(R.id.backbtn);
         addIb = (ImageButton) findViewById(R.id.add_btn);
         smsIb = (ImageButton) findViewById(R.id.sms_btn);
         callIb = (ImageButton) findViewById(R.id.call_btn);
 
         materialDesignFAM = (FloatingActionMenu) findViewById(R.id.menuFAB);
+        perfilFAB = (FloatingActionButton) findViewById(R.id.floatingBtnPerfil);
         mapFAB = (FloatingActionButton) findViewById(R.id.floatingBtnMap);
+        productosFAB = (FloatingActionButton) findViewById(R.id.floatingBtnProductos);
 
         tienda_id = getIntent().getExtras().getInt("ID");
         Log.e(TAG, "tienda_id:" + tienda_id);
@@ -76,14 +84,21 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        listIb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Categorias();
+            }
+        });
+
         initialize();
     }
 
     private void initialize() {
 
-        ApiService service = ApiServiceGenerator.createService(ApiService.class);
+        service = ApiServiceGenerator.createService(ApiService.class);
 
-        Call<Tienda> call = service.showProducto(tienda_id);
+        Call<Tienda> call = service.showTienda(tienda_id);
 
         call.enqueue(new Callback<Tienda>() {
             @Override
@@ -102,13 +117,29 @@ public class DetailActivity extends AppCompatActivity {
                         puestoTxt.setText(tienda.getPuesto());
                         telefonoTxt.setText(tienda.getTelefono());
 
+                        perfilFAB.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Comerciante(Integer.parseInt(tienda.getComerciante_id()));
+                            }
+                        });
+
                         mapFAB.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Intent intent = new Intent(DetailActivity.this, GamarraMapsActivity.class);
+                                Intent intent = new Intent(TiendaActivity.this, GamarraMapsActivity.class);
                                 intent.putExtra("nombre",tienda.getNombre());
                                 intent.putExtra("latitud",tienda.getLatitud());
                                 intent.putExtra("longitud",tienda.getLongitud());
+                                startActivity(intent);
+                            }
+                        });
+
+                        productosFAB.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(TiendaActivity.this, ProductosActivity.class);
+                                intent.putExtra("tienda_id", tienda_id);
                                 startActivity(intent);
                             }
                         });
@@ -140,7 +171,7 @@ public class DetailActivity extends AppCompatActivity {
 
                                 if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
                                     ActivityCompat.requestPermissions(
-                                            DetailActivity.this,
+                                            TiendaActivity.this,
                                             new String[]{Manifest.permission.CALL_PHONE},
                                             Integer.parseInt("123"));
                                 } else {
@@ -158,7 +189,7 @@ public class DetailActivity extends AppCompatActivity {
                 } catch (Throwable t) {
                     try {
                         Log.e(TAG, "onThrowable: " + t.toString(), t);
-                        Toast.makeText(DetailActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(TiendaActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
                     }catch (Throwable x){}
                 }
             }
@@ -166,11 +197,66 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Tienda> call, Throwable t) {
                 Log.e(TAG, "onFailure: " + t.toString());
-                Toast.makeText(DetailActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(TiendaActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
 
         });
 
+    }
+
+    private void Comerciante(int id){
+
+        Call<Usuario> call = service.showUsuario(id);
+
+        call.enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                try {
+
+                    int statusCode = response.code();
+                    Log.d(TAG, "HTTP status code: " + statusCode);
+
+                    if (response.isSuccessful()) {
+
+                        final Usuario usuario = response.body();
+                        Log.d(TAG, "usuario: " + usuario);
+
+                        final Dialog productDialog = new Dialog(TiendaActivity.this);
+                        productDialog.setContentView(R.layout.alert_comerciante);
+
+                        TextView userName = ( TextView ) productDialog.findViewById(R.id.name);
+                        TextView userEmail = ( TextView ) productDialog.findViewById(R.id.email);
+                        TextView userDni = ( TextView ) productDialog.findViewById(R.id.dni);
+
+                        userName.setText(usuario.getNombre());
+                        userEmail.setText(usuario.getEmail());
+                        userDni.setText(usuario.getDni());
+
+                        productDialog.show();
+
+                    } else {
+                        Log.e(TAG, "onError: " + response.errorBody().string());
+                        throw new Exception("Error en el servicio");
+                    }
+
+                } catch (Throwable t) {
+                    try {
+                        Log.e(TAG, "onThrowable: " + t.toString(), t);
+                        Toast.makeText(TiendaActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                    }catch (Throwable x){}
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+                Log.e(TAG, "onFailure: " + t.toString());
+                Toast.makeText(TiendaActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+        });
+    }
+
+    private void Categorias(){
 
         Call<List<tiendaCategoria>> callTienda_has_categorias = service.getTiendaHasCategoria();
         callTienda_has_categorias.enqueue(new Callback<List<tiendaCategoria>>() {
@@ -186,7 +272,7 @@ public class DetailActivity extends AppCompatActivity {
                         List<tiendaCategoria> tiendaCategorias = response.body();
                         Log.d(TAG, "tiendaCategorias: " + tiendaCategorias);
 
-                        List<Categoria> categorias = CategoriaRepository.list();
+                        List<Categoria> categorias = CategoriaRepository.listCategoriasTienda();
                         Log.d(TAG, "categoriasTiendaORM: " + categorias.toString());
 
                         List<String> values = new ArrayList<>();
@@ -203,12 +289,22 @@ public class DetailActivity extends AppCompatActivity {
 
                         Log.d(TAG, "values: " + values);
 
-                        if (values.size() == 0){
-                            categoriasTxt.setText("No tiene");
+                        String[] listItems = new String[values.size()];
+                        Log.e(TAG, "listItems: " + listItems);
+                        listItems = values.toArray(listItems);
+                        Log.e(TAG, "listItems: " + listItems);
 
-                        } else {
-                            categoriasTxt.setText(values.toString());
-                        }
+                        AlertDialog.Builder mBuilder = new AlertDialog.Builder(TiendaActivity.this);
+                        mBuilder.setTitle("Categorías:");
+                        mBuilder.setItems(listItems, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+
+                        AlertDialog mDialog = mBuilder.create();
+                        mDialog.show();
 
                     } else {
                         Log.e(TAG, "onError: " + response.errorBody().string());
@@ -218,7 +314,7 @@ public class DetailActivity extends AppCompatActivity {
                 } catch (Throwable t) {
                     try {
                         Log.e(TAG, "onThrowable: " + t.toString(), t);
-                        Toast.makeText(DetailActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(TiendaActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
                     }catch (Throwable x){}
                 }
             }
@@ -226,10 +322,9 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<tiendaCategoria>> call, Throwable t) {
                 Log.e(TAG, "onFailure: " + t.toString());
-                Toast.makeText(DetailActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(TiendaActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
 
         });
-
     }
 }
