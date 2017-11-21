@@ -116,8 +116,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         UiSettings uiSettings = mMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(true);
 
-        LatLng gamarra = new LatLng(-12.067619, -77.015322);
-        float zoomlevel = 15;
+        LatLng gamarra = new LatLng(-12.06661304538405, -77.01520588248968);
+        float zoomlevel = 16;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(gamarra, zoomlevel));
 
         mMap.addPolyline(new PolylineOptions().geodesic(true).width(4).color(R.color.colorPrimaryDark)

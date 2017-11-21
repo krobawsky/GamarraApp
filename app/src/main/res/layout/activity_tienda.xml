@@ -155,7 +155,7 @@
                 fab:menu_colorPressed="#dc4b3f"
                 fab:menu_colorRipple="#99d4d4d4"
                 fab:menu_fab_size="normal"
-                fab:menu_icon="@drawable/fab_add"
+                fab:menu_icon="@drawable/ic_more_options"
                 fab:menu_labels_colorNormal="#333"
                 fab:menu_labels_colorPressed="#444"
                 fab:menu_labels_colorRipple="#66efecec"
@@ -183,7 +183,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_man_user"
-                    fab:fab_label="Perfil"
+                    fab:fab_label="@string/title_perfil"
                     fab:fab_size="mini" />
 
                 <com.github.clans.fab.FloatingActionButton
@@ -191,15 +191,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@android:drawable/ic_dialog_map"
-                    fab:fab_label="Mapa"
+                    fab:fab_label="@string/title_map"
                     fab:fab_size="mini" />
 
                 <com.github.clans.fab.FloatingActionButton
                     android:id="@+id/floatingBtnProductos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_t_shirt"
-                    fab:fab_label="Productos"
+                    android:src="@drawable/ic_shop_tag2"
+                    fab:fab_label="@string/title_ofertas"
                     fab:fab_size="mini" />
             </com.github.clans.fab.FloatingActionMenu>
 

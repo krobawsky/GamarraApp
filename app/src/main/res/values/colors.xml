@@ -2,22 +2,24 @@
 <resources>
     <color name="colorNav1">#4D5656</color>
     <color name="white2">#E6E6E6</color>
-    <color name="white">#FDFEFE</color>
+    <color name="white">#FFFFFF</color>
     <color name="colorNav3">#474747</color>
 
     <color name="colorPrimary">#B1EA27</color>
     <color name="colorPrimaryDark">#60BC3B</color>
-    <color name="colorAccent">#F415A0</color>
+    <color name="colorAccent">#FF4081</color>
 
-
+    <color name="colorPrimary0">#B1EA27</color>
+    <color name="colorPrimary1">#60BC3B</color>
     <color name="colorPrimary2">#64B1FB</color>
     <color name="colorPrimary3">#77D1FF</color>
     <color name="colorPrimary4">#F5B300</color>
     <color name="colorPrimary5">#FEDF18</color>
     <color name="colorPrimary6">#AA29A4</color>
+    <color name="colorPrimary7">#F415A0</color>
 
     <color name="ground2">#F4F6F6</color>
     <color name="ground">#F8F9F9</color>
-    <color name="back">#FDFEFE</color>
+    <color name="back">#FFFFFF</color>
 
 </resources>

@@ -15,17 +15,15 @@
     <string name="btn_logout">Salir</string>
     <string name="name">Nombre</string>
 
-
     <string name="cancel_login">Se canceló la operación</string>
     <string name="error_login">Ocurrió un error al ingresar</string>
     <string name="logout">Cerrar sesión</string>
-    <string name="title_activity_main2">Main2Activity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_us">Nosotros</string>
-    <string name="title_products">Productos</string>
+    <string name="title_ofertas">Ofertas</string>
     <string name="title_map">Mapa</string>
     <string name="title_store">Tiendas</string>
     <string name="title_perfil">Perfil</string>

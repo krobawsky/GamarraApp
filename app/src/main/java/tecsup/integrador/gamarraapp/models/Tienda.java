@@ -8,7 +8,9 @@ public class Tienda {
     private String puesto;
     private String latitud;
     private String longitud;
+    private String ubicacion;
     private String comerciante_id;
+
 
     public Integer getId() {
         return id;
@@ -58,6 +60,14 @@ public class Tienda {
         this.longitud = longitud;
     }
 
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
     public String getComerciante_id() {
         return comerciante_id;
     }
@@ -65,6 +75,7 @@ public class Tienda {
     public void setComerciante_id(String comerciante_id) {
         this.comerciante_id = comerciante_id;
     }
+
 
     @Override
     public String toString() {
@@ -75,7 +86,9 @@ public class Tienda {
                 ", puesto='" + puesto + '\'' +
                 ", latitud='" + latitud + '\'' +
                 ", longitud='" + longitud + '\'' +
+                ", ubicacion='" + ubicacion + '\'' +
                 ", comerciante_id='" + comerciante_id + '\'' +
                 '}';
     }
+
 }

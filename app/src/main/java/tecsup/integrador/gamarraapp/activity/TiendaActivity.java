@@ -44,9 +44,9 @@ public class TiendaActivity extends AppCompatActivity {
     private Integer tienda_id;
 
     private TextView nombreTxt;
-    private TextView puestoTxt;
     private TextView telefonoTxt;
-    private TextView categoriasTxt;
+    private TextView ubicacionTxt;
+    private TextView puestoTxt;
 
     private ImageButton backIb, listIb;
     private ImageButton addIb, smsIb, callIb;
@@ -60,8 +60,9 @@ public class TiendaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tienda);
 
         nombreTxt = (TextView) findViewById(R.id.txtNombre);
-        puestoTxt = (TextView) findViewById(R.id.txtPuesto);
         telefonoTxt = (TextView) findViewById(R.id.txtNumero);
+        ubicacionTxt = (TextView) findViewById(R.id.txtUbicacion);
+        puestoTxt = (TextView) findViewById(R.id.txtPuesto);
 
         listIb = (ImageButton) findViewById(R.id.listbtn);
         backIb = (ImageButton) findViewById(R.id.backbtn);
@@ -114,8 +115,10 @@ public class TiendaActivity extends AppCompatActivity {
                         Log.d(TAG, "tienda: " + tienda);
 
                         nombreTxt.setText(tienda.getNombre());
-                        puestoTxt.setText(tienda.getPuesto());
                         telefonoTxt.setText(tienda.getTelefono());
+                        ubicacionTxt.setText(tienda.getUbicacion());
+                        puestoTxt.setText(tienda.getPuesto());
+
 
                         perfilFAB.setOnClickListener(new View.OnClickListener() {
                             @Override
