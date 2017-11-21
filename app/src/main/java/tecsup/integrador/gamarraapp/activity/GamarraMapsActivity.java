@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.maps.model.StreetViewPanoramaCamera;
 
 import java.util.List;
 
@@ -36,9 +38,9 @@ import tecsup.integrador.gamarraapp.models.Tienda;
 import tecsup.integrador.gamarraapp.servicios.ApiService;
 import tecsup.integrador.gamarraapp.servicios.ApiServiceGenerator;
 
-public class GamarraMapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class GamarraMapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
 
-    private static final String TAG = StoreFragment.class.getSimpleName();
+    private static final String TAG = GamarraMapsActivity.class.getSimpleName();
 
     private Button tipoBtn;
     private String item = "";
@@ -68,6 +70,8 @@ public class GamarraMapsActivity extends FragmentActivity implements OnMapReadyC
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        setUpMap();
 
         UiSettings uiSettings = mMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(true);
@@ -114,9 +118,27 @@ public class GamarraMapsActivity extends FragmentActivity implements OnMapReadyC
 
         } else {
 
-
         }
 
+    }
+
+    private void setUpMap()
+    {
+        mMap.setOnMapLongClickListener(this);
+    }
+
+    @Override
+    public void onMapLongClick(LatLng point) {
+
+        double latitud = point.latitude;
+        double longitud = point.longitude;
+
+        Log.d(TAG, "LatLng: " + latitud + ", "+ longitud);
+
+        Intent intent = new Intent(GamarraMapsActivity.this, StreetViewActivity.class);
+        intent.putExtra("latitudSV", String.valueOf(latitud));
+        intent.putExtra("longitudSV", String.valueOf(longitud));
+        startActivity(intent);
     }
 
     private void showDialog() {

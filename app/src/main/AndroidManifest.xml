@@ -74,7 +74,8 @@
         <activity
             android:name=".activity.GamarraMapsActivity"
             android:label="@string/title_activity_gamarra_maps" />
-        <activity android:name=".activity.ProductosActivity"></activity>
+        <activity android:name=".activity.ProductosActivity" />
+        <activity android:name=".activity.StreetViewActivity"></activity>
     </application>
 
 </manifest>

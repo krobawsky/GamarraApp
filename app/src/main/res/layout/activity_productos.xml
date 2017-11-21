@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipelayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="tecsup.integrador.gamarraapp.activity.ProductosActivity"
@@ -18,20 +17,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <ScrollView
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipelayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/productos_rv"
-                android:layout_height="match_parent"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"/>
+                android:layout_height="match_parent">
 
-        </ScrollView>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/productos_rv"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"/>
+
+            </ScrollView>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
     </LinearLayout>
 
 
-</android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>
