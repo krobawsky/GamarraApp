@@ -13,25 +13,24 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import layout.ProductsFragment;
+import layout.OfertasFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import tecsup.integrador.gamarraapp.R;
-import tecsup.integrador.gamarraapp.adapter.ProductosAdapter;
-import tecsup.integrador.gamarraapp.adapter.ProductosAdapter2;
+import tecsup.integrador.gamarraapp.adapter.ProductosAdapterActivity;
 import tecsup.integrador.gamarraapp.models.Producto;
 import tecsup.integrador.gamarraapp.servicios.ApiService;
 import tecsup.integrador.gamarraapp.servicios.ApiServiceGenerator;
 
 public class ProductosActivity extends AppCompatActivity {
 
-    private static final String TAG = ProductsFragment.class.getSimpleName();
+    private static final String TAG = OfertasFragment.class.getSimpleName();
 
     private RecyclerView productosList;
     private SearchView productosSearch;
 
-    private ProductosAdapter2 adapter;
+    private ProductosAdapterActivity adapter;
     List<Producto> productos;
 
     @Override
@@ -43,7 +42,7 @@ public class ProductosActivity extends AppCompatActivity {
         productosList = (RecyclerView) findViewById(R.id.productos_rv);
 
         productosList.setLayoutManager(new LinearLayoutManager(this));
-        productosList.setAdapter(new ProductosAdapter2(this));
+        productosList.setAdapter(new ProductosAdapterActivity(this));
 
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipelayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorAccent, R.color.colorPrimaryDark);
@@ -97,7 +96,7 @@ public class ProductosActivity extends AppCompatActivity {
                             }
                         }
 
-                        adapter = (ProductosAdapter2) productosList.getAdapter();
+                        adapter = (ProductosAdapterActivity) productosList.getAdapter();
                         adapter.setProductos(values);
                         adapter.notifyDataSetChanged();
 

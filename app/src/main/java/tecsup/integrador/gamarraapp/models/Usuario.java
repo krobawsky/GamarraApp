@@ -7,6 +7,7 @@ public class Usuario {
     private String dni;
     private String email;
     private String password;
+    private String imagen;
     private String created_at;
     private String update_at;
 
@@ -50,6 +51,14 @@ public class Usuario {
         this.password = password;
     }
 
+    public String getImg() {
+        return imagen;
+    }
+
+    public void setImg(String img) {
+        this.imagen = img;
+    }
+
     public String getCreated_at() {
         return created_at;
     }
@@ -74,6 +83,7 @@ public class Usuario {
                 ", dni='" + dni + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", img='" + imagen + '\'' +
                 ", created_at='" + created_at + '\'' +
                 ", update_at='" + update_at + '\'' +
                 '}';

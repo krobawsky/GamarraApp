@@ -1,11 +1,7 @@
 package tecsup.integrador.gamarraapp.activity;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -14,8 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,25 +29,23 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.maps.SupportMapFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import layout.MapFragment;
 import layout.PerfilFragment;
-import layout.ProductsFragment;
-import layout.StoreFragment;
+import layout.OfertasFragment;
+import layout.TiendasFragment;
 import tecsup.integrador.gamarraapp.R;
 
 import tecsup.integrador.gamarraapp.helper.SessionManager;
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, NavigationView.OnNavigationItemSelectedListener {
+public class UserActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, NavigationView.OnNavigationItemSelectedListener {
 
     private ImageView photoImageView;
     private TextView txtName;
@@ -138,14 +130,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             }
         }
 
-    }
-
-    //<------------------------------ Cerrar sesión -------------------------------------->//
-
-    private void goLogInScreen() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
     }
 
     //<------------------------------ Google -------------------------------------->//
@@ -251,32 +235,42 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.navigation_search) {
-            ProductsFragment searchFragment = new ProductsFragment();
-            FragmentTransaction transaction1 = getSupportFragmentManager().beginTransaction();
-            transaction1.replace(R.id.content, searchFragment);
-            transaction1.commit();
-        }else if (id == R.id.navigation_map) {
+        if (id == R.id.navigation_map) {
             MapFragment mapFragment = new MapFragment();
             FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
             transaction2.replace(R.id.content, mapFragment);
             transaction2.commit();
-        }else if (id == R.id.navigation_store) {
-            StoreFragment storeFragment = new StoreFragment();
+        } else if (id == R.id.navigation_store) {
+            TiendasFragment storeFragment = new TiendasFragment();
             FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
             transaction3.replace(R.id.content, storeFragment);
             transaction3.commit();
-        }else if (id == R.id.nav_perfil) {
+        } else if (id == R.id.navigation_ofertas) {
+            OfertasFragment productsFragment = new OfertasFragment();
+            FragmentTransaction transaction1 = getSupportFragmentManager().beginTransaction();
+            transaction1.replace(R.id.content, productsFragment);
+            transaction1.commit();
+        } else if (id == R.id.nav_perfil) {
             PerfilFragment perfilFragment = new PerfilFragment();
             FragmentTransaction transaction4 = getSupportFragmentManager().beginTransaction();
             transaction4.replace(R.id.content, perfilFragment);
@@ -310,4 +304,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         return true;
     }
 
+    //<------------------------------ Cerrar sesión -------------------------------------->//
+
+    private void goLogInScreen() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 }

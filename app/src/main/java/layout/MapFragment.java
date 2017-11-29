@@ -1,9 +1,7 @@
 package layout;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,9 +21,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.github.clans.fab.FloatingActionButton;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -44,6 +39,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import tecsup.integrador.gamarraapp.R;
+import tecsup.integrador.gamarraapp.activity.ScrollingGaleriaActivity;
 import tecsup.integrador.gamarraapp.activity.TiendaActivity;
 import tecsup.integrador.gamarraapp.models.Categoria;
 import tecsup.integrador.gamarraapp.models.CategoriaRepository;
@@ -54,7 +50,7 @@ import tecsup.integrador.gamarraapp.servicios.ApiServiceGenerator;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
-    private static final String TAG = StoreFragment.class.getSimpleName();
+    private static final String TAG = TiendasFragment.class.getSimpleName();
 
     private GoogleMap mMap;
 

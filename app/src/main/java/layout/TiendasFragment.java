@@ -34,13 +34,13 @@ import tecsup.integrador.gamarraapp.models.tiendaCategoria;
 import tecsup.integrador.gamarraapp.servicios.ApiService;
 import tecsup.integrador.gamarraapp.servicios.ApiServiceGenerator;
 
-public class StoreFragment extends Fragment {
+public class TiendasFragment extends Fragment {
 
-    public StoreFragment() {
+    public TiendasFragment() {
         // Required empty public constructor
     }
 
-    private static final String TAG = StoreFragment.class.getSimpleName();
+    private static final String TAG = TiendasFragment.class.getSimpleName();
 
     private ProgressDialog pDialog;
 
@@ -83,7 +83,7 @@ public class StoreFragment extends Fragment {
         initialize();
 
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipelayout);
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent,R.color.colorAccent,R.color.colorPrimaryDark);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent,R.color.colorPrimary,R.color.colorPrimaryDark);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

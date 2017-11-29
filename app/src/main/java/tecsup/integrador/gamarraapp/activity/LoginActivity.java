@@ -2,6 +2,8 @@ package tecsup.integrador.gamarraapp.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -34,12 +36,15 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private SignInButton signInButton;
     public static final int SIGN_IN_CODE = 9001;
 
+    private Button linkBtn;
     private LoginButton loginButton;
     private CallbackManager callbackManager;
 
     private SessionManager session;
+    private SharedPreferences sharedPreferences;
 
     Animation downtoup;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +53,25 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         // session manager
         session = new SessionManager(getApplicationContext());
+        // init SharedPreferences
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+        linkBtn = (Button) findViewById(R.id.btnLink);
         downtoup = AnimationUtils.loadAnimation(this,R.anim.downtoup);
+
 
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
             // User is already logged in. Take him to main activity
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            Intent intent = new Intent(LoginActivity.this, UserActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        // islogged remember
+        if(sharedPreferences.getBoolean("islogged", false)){
+            // Go to Dashboard
+            Intent intent = new Intent(LoginActivity.this, UserComercianteActivity.class);
             startActivity(intent);
             finish();
         }
@@ -105,6 +122,16 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 Toast.makeText(getApplicationContext(), R.string.error_login, Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Link to Register Screen
+        linkBtn.setAnimation(downtoup);
+        linkBtn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), LoginUserActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -147,7 +174,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         customtoast.show();
 
         // Launch main activity
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        Intent intent = new Intent(LoginActivity.this, UserActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();

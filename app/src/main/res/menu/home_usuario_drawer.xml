@@ -2,11 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_search"
-        android:icon="@drawable/ic_shop_tag"
-        android:title="@string/title_ofertas" />
-
-    <item
         android:id="@+id/navigation_map"
         android:icon="@drawable/ic_map"
         android:title="@string/title_map" />
@@ -15,6 +10,11 @@
         android:id="@+id/navigation_store"
         android:icon="@drawable/ic_store"
         android:title="@string/title_store" />
+
+    <item
+        android:id="@+id/navigation_ofertas"
+        android:icon="@drawable/ic_shop_tag"
+        android:title="@string/title_ofertas" />
 
     <item android:title="Cuenta">
         <menu>

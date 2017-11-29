@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="tecsup.integrador.gamarraapp.activity.RegisterProImagenActivity">
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@color/colorPrimaryDark"
+        android:id="@+id/linearLayout"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:backgroundTint="@android:color/transparent"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            fab:srcCompat="@drawable/ic_arrow_back"
+            style="@style/Widget.AppCompat.ImageButton"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textColor="@color/back"
+            android:text="@string/oferta_imagen"
+            android:id="@+id/textView2"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/btnBack" />
+
+        <ImageButton
+            android:id="@+id/btnCamera"
+            android:backgroundTint="@android:color/transparent"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            fab:srcCompat="@drawable/ic_insert_photo"
+            style="@style/Widget.AppCompat.ImageButton"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:onClick="galleryPicture"/>
+
+        <ImageButton
+            android:id="@+id/btnGaleria"
+            android:backgroundTint="@android:color/transparent"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/btnCamera"
+            fab:srcCompat="@drawable/ic_camera"
+            style="@style/Widget.AppCompat.ImageButton"
+            android:onClick="takePicture"/>
+
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imgPreview"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/img_imagen"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/linearLayout2" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+        <!-- Register Button -->
+
+        <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/borde_redondo_fondo"
+            android:text="@string/oferta_registrar"
+            android:textColor="@color/white"
+            android:onClick="registrerOferta"/>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

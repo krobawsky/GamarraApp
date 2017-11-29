@@ -46,13 +46,28 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp" />
 
+        <!-- Link to Login Screen -->
+
+        <Button
+            android:id="@+id/btnLink"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:text="@string/btn_link_to_login_vendedor"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary0"
+            android:textSize="16dp"
+            android:layout_above="@+id/imageView2"
+            android:layout_alignParentStart="true" />
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:scaleType="fitXY"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:src="@drawable/img_colorbar_gruesito" />
+            android:src="@drawable/img_colorbar_gruesito"
+            android:id="@+id/imageView2" />
 
     </RelativeLayout>
 

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import layout.StoreFragment;
+import layout.TiendasFragment;
 import tecsup.integrador.gamarraapp.R;
 import tecsup.integrador.gamarraapp.activity.TiendaActivity;
 import tecsup.integrador.gamarraapp.models.Tienda;
@@ -26,9 +26,9 @@ public class TiendasAdapter extends RecyclerView.Adapter<TiendasAdapter.ViewHold
 
     private Filter fRecords;
 
-    private StoreFragment fragment;
+    private TiendasFragment fragment;
 
-    public TiendasAdapter(StoreFragment fragment){
+    public TiendasAdapter(TiendasFragment fragment){
         this.tiendas = new ArrayList<>();
         this.fragment = fragment;
     }

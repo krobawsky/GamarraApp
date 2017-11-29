@@ -1,6 +1,5 @@
 package tecsup.integrador.gamarraapp.adapter;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -18,9 +17,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import layout.ProductsFragment;
+import layout.OfertasFragment;
 import tecsup.integrador.gamarraapp.R;
-import tecsup.integrador.gamarraapp.activity.ProductosActivity;
 import tecsup.integrador.gamarraapp.activity.TiendaActivity;
 import tecsup.integrador.gamarraapp.models.Producto;
 import tecsup.integrador.gamarraapp.servicios.ApiService;
@@ -30,13 +28,12 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.View
     private static final String TAG = ProductosAdapter.class.getSimpleName();
 
     private List<Producto> productos;
-    public ArrayList<Producto> filterList;
 
     private Filter fRecords;
 
-    private ProductsFragment fragment;
+    private OfertasFragment fragment;
 
-    public ProductosAdapter(ProductsFragment fragment){
+    public ProductosAdapter(OfertasFragment fragment){
         this.productos = new ArrayList<>();
         this.fragment = fragment;
     }

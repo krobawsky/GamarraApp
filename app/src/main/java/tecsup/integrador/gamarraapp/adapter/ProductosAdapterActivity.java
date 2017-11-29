@@ -2,7 +2,6 @@ package tecsup.integrador.gamarraapp.adapter;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,15 +17,13 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import layout.ProductsFragment;
 import tecsup.integrador.gamarraapp.R;
-import tecsup.integrador.gamarraapp.activity.TiendaActivity;
 import tecsup.integrador.gamarraapp.models.Producto;
 import tecsup.integrador.gamarraapp.servicios.ApiService;
 
-public class ProductosAdapter2 extends RecyclerView.Adapter<ProductosAdapter2.ViewHolder> implements Filterable {
+public class ProductosAdapterActivity extends RecyclerView.Adapter<ProductosAdapterActivity.ViewHolder> implements Filterable {
 
-    private static final String TAG = ProductosAdapter2.class.getSimpleName();
+    private static final String TAG = ProductosAdapterActivity.class.getSimpleName();
 
     private List<Producto> productos;
     public ArrayList<Producto> filterList;
@@ -35,7 +32,7 @@ public class ProductosAdapter2 extends RecyclerView.Adapter<ProductosAdapter2.Vi
 
     private Activity activity;
 
-    public ProductosAdapter2(Activity activity){
+    public ProductosAdapterActivity(Activity activity){
         this.productos = new ArrayList<>();
         this.activity = activity;
     }
@@ -60,13 +57,13 @@ public class ProductosAdapter2 extends RecyclerView.Adapter<ProductosAdapter2.Vi
     }
 
     @Override
-    public ProductosAdapter2.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ProductosAdapterActivity.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_producto, parent, false);
         return new ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(ProductosAdapter2.ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(ProductosAdapterActivity.ViewHolder viewHolder, final int position) {
 
         final Producto producto = this.productos.get(position);
 
@@ -126,7 +123,7 @@ public class ProductosAdapter2 extends RecyclerView.Adapter<ProductosAdapter2.Vi
     @Override
     public Filter getFilter() {
         if(fRecords == null) {
-            fRecords=new ProductosAdapter2.RecordFilter();
+            fRecords=new ProductosAdapterActivity.RecordFilter();
         }
         return fRecords;
     }

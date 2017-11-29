@@ -24,6 +24,7 @@ public class PerfilFragment extends Fragment {
     private ImageView imageView;
     private TextView txtName;
     private TextView txtMail;
+    private TextView txtDni;
 
     public PerfilFragment() {
         // Required empty public constructor
@@ -38,17 +39,25 @@ public class PerfilFragment extends Fragment {
         imageView = (ImageView) view.findViewById(R.id.imageView);
         txtName = (TextView) view.findViewById(R.id.name);
         txtMail = (TextView) view.findViewById(R.id.email);
+        txtDni = (TextView) view.findViewById(R.id.dni);
 
         Bundle args = getArguments();
-        String photo = args.getString("photo", "No photo");
+        String photoUrl = args.getString("photo", "No photo");
         String name = args.getString("name", "No name");
         String email = args.getString("email", "No mail");
+        String dni = args.getString("dni", "No dni");
 
-        if (photo != "0"){
-            Glide.with(getActivity()).load(photo).into(imageView);
+        if (photoUrl != "0"){
+            Glide.with(getActivity()).load(photoUrl).into(imageView);
         } else {
             imageView.getResources().getDrawable(R.drawable.img_hombre);
         }
+
+        if (dni != "No dni"){
+            txtDni.setText("DNI: "+dni);
+            txtDni.setVisibility(View.VISIBLE);
+        }
+
         txtName.setText(name);
         txtMail.setText(email);
 

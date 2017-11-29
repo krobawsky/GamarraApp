@@ -53,6 +53,17 @@
             android:text="S/. 200.00"
             android:textSize="14dp" />
 
+        <ImageButton
+            android:id="@+id/menu_button"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:background="@null"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            app:srcCompat="@drawable/ic_menu_dots"
+            android:visibility="gone"/>
+
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

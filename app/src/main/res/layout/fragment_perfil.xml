@@ -6,7 +6,6 @@
     tools:context="layout.PerfilFragment"
     android:padding="16dp">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -62,6 +61,17 @@
             android:textSize="16dp"
             tools:text="ricardo.berrospi@tescup.edu.pe" />
 
+        <!-- Dni de la cuenta -->
+        <TextView
+            android:id="@+id/dni"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/colorNav1"
+            android:textSize="16dp"
+            android:text="48294820"
+            android:visibility="gone"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

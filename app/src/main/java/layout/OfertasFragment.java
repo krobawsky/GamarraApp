@@ -14,10 +14,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -29,24 +26,20 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import tecsup.integrador.gamarraapp.R;
 import tecsup.integrador.gamarraapp.adapter.ProductosAdapter;
-import tecsup.integrador.gamarraapp.adapter.ProductosAdapter2;
-import tecsup.integrador.gamarraapp.adapter.TiendasAdapter;
-import tecsup.integrador.gamarraapp.models.Categoria;
 import tecsup.integrador.gamarraapp.models.Categoria2;
 import tecsup.integrador.gamarraapp.models.CategoriaRepository;
 import tecsup.integrador.gamarraapp.models.Producto;
-import tecsup.integrador.gamarraapp.models.Tienda;
 import tecsup.integrador.gamarraapp.servicios.ApiService;
 import tecsup.integrador.gamarraapp.servicios.ApiServiceGenerator;
 
 
-public class ProductsFragment extends Fragment {
+public class OfertasFragment extends Fragment {
 
-    public ProductsFragment() {
+    public OfertasFragment() {
         // Required empty public constructor
     }
 
-    private static final String TAG = ProductsFragment.class.getSimpleName();
+    private static final String TAG = OfertasFragment.class.getSimpleName();
 
     private RecyclerView productosList;
     private SearchView productosSearch;
@@ -191,7 +184,7 @@ public class ProductsFragment extends Fragment {
         final List<String> values = new ArrayList<>();
 
         final List<Categoria2> categorias = CategoriaRepository.listCategoriasProducto();
-        Log.d(TAG, "categoriasTiendaORM: " + categorias.toString());
+        Log.d(TAG, "categoriasProductoORM: " + categorias.toString());
 
         for (Categoria2 categoria : categorias) {
             values.add(categoria.getNombre());
