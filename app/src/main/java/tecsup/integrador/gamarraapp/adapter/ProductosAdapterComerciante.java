@@ -1,8 +1,6 @@
 package tecsup.integrador.gamarraapp.adapter;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -25,7 +23,6 @@ import layout.MisOfertasFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import tecsup.integrador.gamarraapp.activity.TiendaActivity;
 import tecsup.integrador.gamarraapp.models.Producto;
 import tecsup.integrador.gamarraapp.R;
 import tecsup.integrador.gamarraapp.servicios.ApiService;
@@ -52,7 +49,7 @@ public class ProductosAdapterComerciante extends RecyclerView.Adapter<ProductosA
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-
+        public ImageView sale;
         public ImageView fotoImage;
         public TextView nombreText;
         public TextView precioText;
@@ -60,6 +57,7 @@ public class ProductosAdapterComerciante extends RecyclerView.Adapter<ProductosA
 
         public ViewHolder(View itemView) {
             super(itemView);
+            sale = (ImageView) itemView.findViewById(R.id.sale);
             fotoImage = (ImageView) itemView.findViewById(R.id.foto_image);
             nombreText = (TextView) itemView.findViewById(R.id.nombre_text);
             precioText = (TextView) itemView.findViewById(R.id.precio_text);
@@ -120,6 +118,8 @@ public class ProductosAdapterComerciante extends RecyclerView.Adapter<ProductosA
                 productDialog.show();
             }
         });
+
+        viewHolder.sale.setVisibility(View.GONE);
 
         viewHolder.menuButton.setVisibility(View.VISIBLE);
         viewHolder.menuButton.setOnClickListener(new View.OnClickListener() {

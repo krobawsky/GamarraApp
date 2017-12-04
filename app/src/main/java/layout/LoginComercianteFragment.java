@@ -1,13 +1,16 @@
-package tecsup.integrador.gamarraapp.activity;
+package layout;
+
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -21,13 +24,25 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import tecsup.integrador.gamarraapp.R;
+import tecsup.integrador.gamarraapp.activity.RegisterUserActivity;
+import tecsup.integrador.gamarraapp.activity.ScrollingGaleriaActivity;
+import tecsup.integrador.gamarraapp.activity.UserComercianteActivity;
 import tecsup.integrador.gamarraapp.models.Usuario;
 import tecsup.integrador.gamarraapp.servicios.ApiService;
 import tecsup.integrador.gamarraapp.servicios.ApiServiceGenerator;
 
-public class LoginUserActivity extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class LoginComercianteFragment extends Fragment {
 
-    private static final String TAG = LoginUserActivity.class.getSimpleName();
+
+    public LoginComercianteFragment() {
+        // Required empty public constructor
+    }
+
+
+    private static final String TAG = ScrollingGaleriaActivity.class.getSimpleName();
 
     private SharedPreferences sharedPreferences;
 
@@ -39,23 +54,23 @@ public class LoginUserActivity extends AppCompatActivity {
 
     private ProgressDialog pDialog;
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_user);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_login_comerciante, container, false);
 
-        inputEmail = (EditText) findViewById(R.id.userTxt);
-        inputPassword = (EditText) findViewById(R.id.passTxt);
-        loginBtn = (Button) findViewById(R.id.btnLogin);
-        linkBtn = (Button) findViewById(R.id.btnLink);
+        inputEmail = (EditText) view.findViewById(R.id.userTxt);
+        inputPassword = (EditText) view.findViewById(R.id.passTxt);
+        loginBtn = (Button) view.findViewById(R.id.btnLogin);
+        linkBtn = (Button) view.findViewById(R.id.btnLink);
 
         // Progress dialog
-        pDialog = new ProgressDialog(this);
+        pDialog = new ProgressDialog(getActivity());
         pDialog.setCancelable(false);
 
         // init SharedPreferences
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         // username remember
         String username = sharedPreferences.getString("username", null);
@@ -81,7 +96,7 @@ public class LoginUserActivity extends AppCompatActivity {
 
                 } else {
                     // Prompt user to enter credentials
-                    Toast.makeText(getApplicationContext(),
+                    Toast.makeText(getActivity().getApplicationContext(),
                             "Campos incompletos!", Toast.LENGTH_LONG)
                             .show();
                 }
@@ -92,10 +107,13 @@ public class LoginUserActivity extends AppCompatActivity {
         linkBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), RegisterUserActivity.class);
+                Intent i = new Intent(getActivity().getApplicationContext(), RegisterUserActivity.class);
                 startActivity(i);
             }
         });
+
+
+        return view;
     }
 
     /**
@@ -127,7 +145,7 @@ public class LoginUserActivity extends AppCompatActivity {
                             if (usuario.getEmail().equalsIgnoreCase(email) && usuario.getPassword().equalsIgnoreCase(convertMd5(password))) {
 
                                 String name = usuario.getNombre();
-                                Toast.makeText(getApplication(), "Bienvenido "+ name, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Bienvenido "+ name, Toast.LENGTH_SHORT).show();
 
                                 // Go to Dashboard
                                 goDashboard(String.valueOf(usuario.getId()), email);
@@ -137,7 +155,7 @@ public class LoginUserActivity extends AppCompatActivity {
 
                         for (Usuario usuario : usuarios) {
                             if (!usuario.getEmail().equalsIgnoreCase(email) && !usuario.getPassword().equalsIgnoreCase(convertMd5(password))) {
-                                Toast.makeText(LoginUserActivity.this, "Datos incorrectos.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Datos incorrectos.", Toast.LENGTH_SHORT).show();
                                 return;
                             }
                         }
@@ -152,7 +170,7 @@ public class LoginUserActivity extends AppCompatActivity {
                     try {
                         Log.e(TAG, "onThrowable: " + t.toString(), t);
                         hideDialog();
-                        Toast.makeText(LoginUserActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
                     }catch (Throwable x){}
                 }
             }
@@ -161,7 +179,7 @@ public class LoginUserActivity extends AppCompatActivity {
             public void onFailure(Call<List<Usuario>> call, Throwable t) {
                 Log.e(TAG, "onFailure: " + t.toString());
                 hideDialog();
-                Toast.makeText(LoginUserActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
             }
 
         });
@@ -200,9 +218,9 @@ public class LoginUserActivity extends AppCompatActivity {
         editor.putString("username", username).commit();
         editor.putString("id", id).commit();
 
-        Intent intent = new Intent(LoginUserActivity.this, UserComercianteActivity.class);
+        Intent intent = new Intent(getActivity().getApplicationContext(), UserComercianteActivity.class);
         startActivity(intent);
-        finish();
+        getActivity().finish();
     }
 
     /**
@@ -218,4 +236,5 @@ public class LoginUserActivity extends AppCompatActivity {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
+
 }

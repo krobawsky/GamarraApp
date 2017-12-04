@@ -23,6 +23,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
+        android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
         <meta-data
             android:name="DATABASE"
@@ -45,6 +46,7 @@
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,9 +58,8 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
-        <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.UserActivity" />
-        <activity android:name=".activity.TiendaActivity" />
+        <activity android:name=".activity.LoginActivity" android:screenOrientation="portrait" />
+        <activity android:name=".activity.UserActivity" android:screenOrientation="portrait" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -74,24 +75,31 @@
         <activity
             android:name=".activity.GamarraMapsActivity"
             android:label="@string/title_activity_gamarra_maps" />
-        <activity android:name=".activity.ProductosActivity" />
-        <activity android:name=".activity.StreetViewActivity" />
-        <activity android:name=".activity.LoginUserActivity" />
-        <activity android:name=".activity.RegisterUserActivity" />
-        <activity android:name=".activity.RegisterTiendaActivity" />
+        <activity android:name=".activity.ProductosActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.StreetViewActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.RegisterUserActivity" android:screenOrientation="portrait" />
+        <activity android:name=".activity.RegisterTiendaActivity" android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.UserComercianteActivity"
             android:label="@string/title_activity_home_comerciante"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme" android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.GamarraUbiActivity"
-            android:label="@string/title_activity_gamarra_ubi" />
-        <activity android:name=".activity.RegisterProductoActivity" />
-        <activity android:name=".activity.RegisterProImagenActivity" />
+            android:label="@string/title_activity_gamarra_ubi" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.RegisterProductoActivity" android:screenOrientation="portrait" />
+        <activity android:name=".activity.RegisterProImagenActivity" android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.ScrollingGaleriaActivity"
             android:label="@string/title_activity_scrolling_galeria"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" android:screenOrientation="portrait"></activity>
+
+        <!-- Declare MyJobService -->
+        <service android:name=".services.MyJobService" android:exported="false">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

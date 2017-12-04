@@ -93,7 +93,18 @@ android:padding="16dp">
         android:layout_marginTop="8dp"
         android:textColor="@color/colorNav1"
         android:textSize="16dp"
-        tools:text="mi puestooooooo" />
+        tools:text="Puesto: mi puestooooooo" />
+
+    <Button
+        android:id="@+id/btnCat"
+        android:layout_width="fill_parent"
+        android:layout_height="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:background="@drawable/borde_redondo_fondo"
+        android:text="@string/tienda_btn_cat"
+        android:textColor="@color/white"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

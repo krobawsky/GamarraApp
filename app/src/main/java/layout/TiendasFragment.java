@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -26,9 +27,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import tecsup.integrador.gamarraapp.R;
+import tecsup.integrador.gamarraapp.adapter.ProductosAdapter;
 import tecsup.integrador.gamarraapp.adapter.TiendasAdapter;
 import tecsup.integrador.gamarraapp.models.Categoria;
+import tecsup.integrador.gamarraapp.models.Categoria2;
 import tecsup.integrador.gamarraapp.models.CategoriaRepository;
+import tecsup.integrador.gamarraapp.models.Producto;
 import tecsup.integrador.gamarraapp.models.Tienda;
 import tecsup.integrador.gamarraapp.models.tiendaCategoria;
 import tecsup.integrador.gamarraapp.servicios.ApiService;
@@ -47,7 +51,7 @@ public class TiendasFragment extends Fragment {
     private RecyclerView tiendasList;
     private SearchView tiendasSearch;
 
-    private Button categoriaBtn;
+    private ImageButton btnCat;
 
     private String item = "";
     String[] listItems;
@@ -64,7 +68,7 @@ public class TiendasFragment extends Fragment {
         tiendasSearch = (SearchView) view.findViewById(R.id.tiendas_sv);
         tiendasList = (RecyclerView) view.findViewById(R.id.tiendas_rv);
 
-        categoriaBtn = (Button) view.findViewById(R.id.btnCategoria);
+        btnCat = (ImageButton) view.findViewById(R.id.btnCat);
 
         // Progress dialog
         pDialog = new ProgressDialog(getActivity());
@@ -73,7 +77,7 @@ public class TiendasFragment extends Fragment {
         tiendasList.setLayoutManager(new LinearLayoutManager(getActivity()));
         tiendasList.setAdapter(new TiendasAdapter(this));
 
-        categoriaBtn.setOnClickListener(new View.OnClickListener() {
+        btnCat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialogCategorias();

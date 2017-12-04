@@ -27,5 +27,4 @@ public class CategoriaRepository {
         SugarRecord.save(categoriasProducto);
     }
 
-
 }

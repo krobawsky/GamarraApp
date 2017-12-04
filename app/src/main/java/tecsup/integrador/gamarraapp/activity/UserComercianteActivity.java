@@ -1,5 +1,6 @@
 package tecsup.integrador.gamarraapp.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -186,7 +187,11 @@ public class UserComercianteActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_us) {
+            Dialog productDialog = new Dialog(UserComercianteActivity.this);
+            productDialog.setContentView(R.layout.alert_nosotros);
+            productDialog.show();
+
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -244,6 +249,7 @@ public class UserComercianteActivity extends AppCompatActivity
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("islogged", false).commit();
         editor.putString("tienda_id", null).commit();
+        editor.putString("id", null).commit();
 
         // Launching the login activity
         Intent intent = new Intent(UserComercianteActivity.this, LoginActivity.class);

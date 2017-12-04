@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -44,7 +45,7 @@ public class OfertasFragment extends Fragment {
     private RecyclerView productosList;
     private SearchView productosSearch;
 
-    private Button categoriaBtn;
+    private ImageButton btnCat;
 
     private String item;
     String[] listItems;
@@ -61,12 +62,12 @@ public class OfertasFragment extends Fragment {
         productosSearch = (SearchView) view.findViewById(R.id.productos_sv);
         productosList = (RecyclerView) view.findViewById(R.id.productos_rv);
 
-        categoriaBtn = (Button) view.findViewById(R.id.btnCategoria);
+        btnCat = (ImageButton) view.findViewById(R.id.btnCat);
 
         productosList.setLayoutManager(new LinearLayoutManager(getActivity()));
         productosList.setAdapter(new ProductosAdapter(this));
 
-        categoriaBtn.setOnClickListener(new View.OnClickListener() {
+        btnCat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialog();
@@ -76,7 +77,7 @@ public class OfertasFragment extends Fragment {
         initialize();
 
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipelayout);
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent,R.color.colorAccent,R.color.colorPrimaryDark);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent,R.color.colorPrimary,R.color.colorPrimaryDark);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

@@ -1,0 +1,94 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    tools:context="layout.LoginUsuarioFragment">
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/userLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="32dp"
+                app:hintEnabled="false">
+
+                <EditText
+                    android:id="@+id/userTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/lightorange"
+                    android:hint="@string/hint_email"
+                    android:inputType="textPersonName"
+                    android:shadowColor="@color/lightorange"
+                    android:textColor="@color/lightorange"
+                    android:textColorHighlight="@color/lightorange"
+                    android:textColorHint="@color/lightorange"
+                    android:textColorLink="@color/lightorange" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/passLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/userLayout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="16dp"
+                app:hintEnabled="false"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/colorPrimary">
+
+                <EditText
+                    android:id="@+id/passTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/lightorange"
+                    android:hint="@string/hint_password"
+                    android:inputType="textPassword"
+                    android:textColor="@color/lightorange"
+                    android:textColorHint="@color/lightorange" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/passLayout"
+                android:layout_alignStart="@+id/passLayout"
+                android:layout_below="@+id/passLayout"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/borde_redondo_fondo"
+                android:text="@string/btn_login"
+                android:textColor="@color/lightorange" />
+
+            <Button
+                android:id="@+id/btnLink"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:background="@null"
+                android:text="@string/btn_link_to_login_vendedor"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14dp"
+                android:padding="10dp"
+                android:layout_margin="5dp"
+                android:layout_below="@+id/btnLogin"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+</LinearLayout>

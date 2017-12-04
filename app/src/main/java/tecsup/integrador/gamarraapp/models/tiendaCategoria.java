@@ -6,6 +6,12 @@ public class tiendaCategoria {
     private String tienda_id;
     private String categoria_tienda_id;
 
+    public tiendaCategoria(Integer id, String tienda_id, String categoria_tienda_id) {
+        this.id = id;
+        this.tienda_id = tienda_id;
+        this.categoria_tienda_id = categoria_tienda_id;
+    }
+
     public Integer getId() {
         return id;
     }

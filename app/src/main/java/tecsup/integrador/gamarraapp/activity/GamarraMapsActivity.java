@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -30,8 +31,11 @@ public class GamarraMapsActivity extends AppCompatActivity implements OnMapReady
 
     private static final String TAG = GamarraMapsActivity.class.getSimpleName();
 
+    private ImageButton btnBack, btnStreet;
     private Button tipoBtn;
+
     private String item = "";
+    private double latitudDouble, longitudDouble;
 
     private GoogleMap mMap;
 
@@ -41,11 +45,29 @@ public class GamarraMapsActivity extends AppCompatActivity implements OnMapReady
         setContentView(R.layout.activity_gamarra_maps);
 
         tipoBtn = (Button) findViewById(R.id.btnTipo);
+        btnStreet = (ImageButton) findViewById(R.id.btnStreet);
+        btnBack = (ImageButton) findViewById(R.id.btnBack);
 
         tipoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialog();
+            }
+        });
+
+        // Street button
+        btnStreet.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                goStreetView();
+            }
+        });
+
+        // Back button
+        btnBack.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                finish();
             }
         });
 
@@ -95,8 +117,8 @@ public class GamarraMapsActivity extends AppCompatActivity implements OnMapReady
             String latitud = extras.getString("latitud", null);
             String longitud = extras.getString("longitud", null);
 
-            double latitudDouble = Double.parseDouble(latitud);
-            double longitudDouble = Double.parseDouble(longitud);
+            latitudDouble = Double.parseDouble(latitud);
+            longitudDouble = Double.parseDouble(longitud);
 
             Log.d(TAG, "LatLng: " + latitudDouble + " , " + longitudDouble);
 
@@ -129,6 +151,13 @@ public class GamarraMapsActivity extends AppCompatActivity implements OnMapReady
         startActivity(intent);
     }
 
+    private void goStreetView(){
+        Intent intent = new Intent(GamarraMapsActivity.this, StreetViewActivity.class);
+        intent.putExtra("latitudSV", String.valueOf(latitudDouble));
+        intent.putExtra("longitudSV", String.valueOf(longitudDouble));
+        startActivity(intent);
+    }
+
     private void showDialog() {
 
         final String[] listItems = new String[4];
@@ -152,7 +181,6 @@ public class GamarraMapsActivity extends AppCompatActivity implements OnMapReady
             public void onClick(DialogInterface dialogInterface, int which) {
 
                 Log.e(TAG, "itemChoice: " + item);
-                Long categoria_id = null;
 
                 if (item.isEmpty()){
                     Toast.makeText(GamarraMapsActivity.this, "Seleccione una categoría", Toast.LENGTH_SHORT).show();

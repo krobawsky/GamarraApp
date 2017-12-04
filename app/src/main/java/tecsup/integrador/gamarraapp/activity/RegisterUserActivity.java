@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -55,7 +56,7 @@ public class RegisterUserActivity extends AppCompatActivity {
     private ProgressDialog pDialog;
 
     private Button btnRegister;
-    private Button btnLink;
+    private ImageButton btnBack;
 
     private ImageView imgPerfil;
     private EditText inputFullName;
@@ -78,7 +79,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         inputPassword2 = (EditText) findViewById(R.id.etxPassword2);
 
         btnRegister = (Button) findViewById(R.id.btnRegister);
-        btnLink = (Button) findViewById(R.id.btnLink);
+        btnBack = (ImageButton) findViewById(R.id.btnBack);
 
         // init SharedPreferences
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -174,10 +175,10 @@ public class RegisterUserActivity extends AppCompatActivity {
             }
         });
 
-        btnLink.setOnClickListener(new View.OnClickListener() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), LoginUserActivity.class);
+                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(i);
                 finish();
             }
@@ -260,7 +261,7 @@ public class RegisterUserActivity extends AppCompatActivity {
 
     private  void goDashboard(){
         // Launch login activity
-        Intent intent = new Intent(RegisterUserActivity.this, LoginUserActivity.class);
+        Intent intent = new Intent(RegisterUserActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
     }

@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -40,7 +42,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import tecsup.integrador.gamarraapp.R;
 import tecsup.integrador.gamarraapp.activity.ScrollingGaleriaActivity;
-import tecsup.integrador.gamarraapp.activity.TiendaActivity;
 import tecsup.integrador.gamarraapp.models.Categoria;
 import tecsup.integrador.gamarraapp.models.CategoriaRepository;
 import tecsup.integrador.gamarraapp.models.Tienda;
@@ -60,7 +61,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     String[] listItems;
 
     private List<Tienda> tiendas;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,6 +82,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
+        initialize();
+    }
+
+    private void initialize() {
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                    .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+        enableMyLocation();
+    }
+
+
+    private void enableMyLocation() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
             if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
@@ -92,16 +106,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         getActivity(), new String[] { android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION }, 1222);
             }
         }
-
-        initialize();
-    }
-
-    private void initialize() {
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
-                    .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
     }
 
     @Override
@@ -167,8 +171,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                                                     if (tienda.getNombre().equalsIgnoreCase(title)) {
                                                         Log.d(TAG, "marker_id: " + tienda.getId());
-                                                        Intent intent = new Intent(getActivity(), TiendaActivity.class);
+                                                        Intent intent = new Intent(getActivity(), ScrollingGaleriaActivity.class);
                                                         intent.putExtra("ID", tienda.getId());
+                                                        intent.putExtra("nombre", tienda.getNombre());
+                                                        intent.putExtra("telefono", tienda.getTelefono());
+                                                        intent.putExtra("ubicacion", tienda.getUbicacion());
+                                                        intent.putExtra("puesto", tienda.getPuesto());
+                                                        intent.putExtra("latitud", tienda.getLatitud());
+                                                        intent.putExtra("longitud", tienda.getLongitud());
+                                                        intent.putExtra("encargado_id", tienda.getComerciante_id());
                                                         startActivity(intent);
                                                     }
                                                 }

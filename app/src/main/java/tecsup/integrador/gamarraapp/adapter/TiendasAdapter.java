@@ -14,12 +14,12 @@ import java.util.List;
 
 import layout.TiendasFragment;
 import tecsup.integrador.gamarraapp.R;
-import tecsup.integrador.gamarraapp.activity.TiendaActivity;
+import tecsup.integrador.gamarraapp.activity.ScrollingGaleriaActivity;
 import tecsup.integrador.gamarraapp.models.Tienda;
 
 public class TiendasAdapter extends RecyclerView.Adapter<TiendasAdapter.ViewHolder> implements Filterable {
 
-    private static final String TAG = TiendaActivity.class.getSimpleName();
+    private static final String TAG = ScrollingGaleriaActivity.class.getSimpleName();
 
     private List<Tienda> tiendas;
     public ArrayList<Tienda> filterList;
@@ -67,8 +67,15 @@ public class TiendasAdapter extends RecyclerView.Adapter<TiendasAdapter.ViewHold
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(fragment.getActivity(), TiendaActivity.class);
+                Intent intent = new Intent(fragment.getActivity(), ScrollingGaleriaActivity.class);
                 intent.putExtra("ID", tienda.getId());
+                intent.putExtra("nombre", tienda.getNombre());
+                intent.putExtra("telefono", tienda.getTelefono());
+                intent.putExtra("ubicacion", tienda.getUbicacion());
+                intent.putExtra("puesto", tienda.getPuesto());
+                intent.putExtra("latitud", tienda.getLatitud());
+                intent.putExtra("longitud", tienda.getLongitud());
+                intent.putExtra("encargado_id", tienda.getComerciante_id());
                 fragment.startActivity(intent);
             }
         });

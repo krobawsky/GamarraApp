@@ -103,12 +103,12 @@ public class RegisterProImagenActivity extends AppCompatActivity {
         Call<ResponseMessage> call = null;
 
         if (mediaFileUri == null) {
-            Toast.makeText(this, "Suba una fotografía.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Suba la imagen de la oferta.", Toast.LENGTH_SHORT).show();
             return;
 
         } else {
 
-            pDialog.setMessage("Subiendo producto ...");
+            pDialog.setMessage("Subiendo oferta ...");
             showDialog();
 
             // Si se incluye hacemos envió en multiparts
@@ -121,7 +121,7 @@ public class RegisterProImagenActivity extends AppCompatActivity {
 
             RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), byteArray);
 
-            // get id from SharedPreferences
+            // get tienda_id from SharedPreferences
             String tienda_id = sharedPreferences.getString("tienda_id", null);
             Log.d(TAG, "tienda_id: " + tienda_id);
 
@@ -153,10 +153,10 @@ public class RegisterProImagenActivity extends AppCompatActivity {
 
                     int statusCode = response.code();
                     Log.d(TAG, "HTTP status code: " + statusCode);
+                    hideDialog();
 
                     if (response.isSuccessful()) {
 
-                        hideDialog();
                         ResponseMessage responseMessage = response.body();
                         Log.d(TAG, "responseMessage: " + responseMessage);
 
@@ -174,7 +174,10 @@ public class RegisterProImagenActivity extends AppCompatActivity {
                     try {
                         Log.e(TAG, "onThrowable: " + t.toString(), t);
                         hideDialog();
-                        Toast.makeText(RegisterProImagenActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(RegisterProImagenActivity.this, UserComercianteActivity.class);
+                        startActivity(intent);
+                        finish();
+                        //Toast.makeText(RegisterProImagenActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
                     } catch (Throwable x) {
                     }
                 }
@@ -183,7 +186,11 @@ public class RegisterProImagenActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseMessage> call, Throwable t) {
                 Log.e(TAG, "onFailure: " + t.toString());
-                Toast.makeText(RegisterProImagenActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                hideDialog();
+                Intent intent = new Intent(RegisterProImagenActivity.this, UserComercianteActivity.class);
+                startActivity(intent);
+                finish();
+                //Toast.makeText(RegisterProImagenActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
 
         });

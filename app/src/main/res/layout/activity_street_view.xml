@@ -1,11 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:fab="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:background="@color/colorPrimary"
+        android:id="@+id/linearLayout"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:backgroundTint="@android:color/transparent"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            fab:srcCompat="@drawable/ic_arrow_back"
+            style="@style/Widget.AppCompat.ImageButton"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textColor="@color/back"
+            android:text="@string/title_streetv"
+            android:id="@+id/textView2"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/btnBack" />
+
+    </RelativeLayout>
 
     <fragment
         android:id="@+id/streetviewpanorama"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        class="com.google.android.gms.maps.SupportStreetViewPanoramaFragment" />
-</FrameLayout>
+        class="com.google.android.gms.maps.SupportStreetViewPanoramaFragment"
+        android:layout_below="@+id/linearLayout" />
+</RelativeLayout>

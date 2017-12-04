@@ -19,6 +19,7 @@ import tecsup.integrador.gamarraapp.R;
 import tecsup.integrador.gamarraapp.models.Categoria;
 import tecsup.integrador.gamarraapp.models.Categoria2;
 import tecsup.integrador.gamarraapp.models.CategoriaRepository;
+import tecsup.integrador.gamarraapp.models.tiendaCategoria;
 import tecsup.integrador.gamarraapp.servicios.ApiService;
 import tecsup.integrador.gamarraapp.servicios.ApiServiceGenerator;
 
@@ -49,7 +50,7 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                 finish();
             }
-        }, 2000); // 2 segundos
+        }, 3000); // 2 segundos
     }
 
     private void addCategorias(){

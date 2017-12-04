@@ -24,11 +24,22 @@ public interface ApiService {
     String API_BASE_URL = "https://gamarra-rest-krobawsky.c9users.io";
 
     //Usuarios
-    @GET("api/v1/usuario/{id}")
-    Call<Usuario> showUsuario(@Path("id") Integer id);
+    @GET("api/v1/user")
+    Call<List<Usuario>> getUsers();
+
+    @FormUrlEncoded
+    @POST("/api/v1/user")
+    Call<ResponseMessage> createUser(@Field("id") String id,
+                                     @Field("nombre") String nombre,
+                                     @Field("email") String email);
+
 
     @GET("api/v1/usuarioall")
     Call<List<Usuario>> getUsuarios();
+
+
+    @GET("api/v1/usuario/{id}")
+    Call<Usuario> showUsuario(@Path("id") Integer id);
 
     @FormUrlEncoded
     @POST("/api/v1/usuario")
@@ -45,7 +56,6 @@ public interface ApiService {
                                         @Part("password") RequestBody password,
                                         @Part MultipartBody.Part imagen
                                         );
-
 
     //Tiendas
     @GET("api/v1/tiendas")
@@ -93,6 +103,18 @@ public interface ApiService {
     @GET("api/v1/tienda_categorias")
     Call<List<tiendaCategoria>> getTiendaHasCategoria();
 
+    //Tienda _ categorias
+    @FormUrlEncoded
+    @POST("/api/v1/tienda_categorias")
+    Call<ResponseMessage> createTiendaHasCategoria(@Field("tienda_id") String tienda_id,
+                                                   @Field("categoria_tienda_id") String categoria_tienda_id);
 
+    @DELETE("/api/v1/tienda_categorias/delete/{id}")
+    Call<ResponseMessage> destroyTiendaHasCategoria(@Path("id") Integer id);
+
+
+    //Favoritos
+    @GET("api/v1/favoritos")
+    Call<List<Categoria>> getFavoritos();
 
 }

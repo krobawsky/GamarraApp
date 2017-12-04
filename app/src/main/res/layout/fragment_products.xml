@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="layout.OfertasFragment"
-    android:padding="16dp"
-    android:orientation="vertical">
+    android:background="@color/white"
+    android:padding="16dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,7 +15,19 @@
         <SearchView
             android:id="@+id/productos_sv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/listbtn" />
+
+        <ImageButton
+            android:id="@+id/btnCat"
+            style="@style/Widget.AppCompat.ImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            fab:srcCompat="@drawable/ic_list"
+            android:layout_above="@+id/swipelayout"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true" />
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipelayout"
@@ -39,17 +51,6 @@
             </ScrollView>
 
         </android.support.v4.widget.SwipeRefreshLayout>
-
-        <Button
-            android:id="@+id/btnCategoria"
-            android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:background="@drawable/borde_redondo"
-            android:text="Categorias"
-            android:textColor="@color/colorAccent"
-            android:textSize="12dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 

@@ -10,9 +10,8 @@
 
     <string name="btn_login">INGRESAR</string>
     <string name="btn_register">REGISTRAR</string>
-    <string name="btn_link_to_login_vendedor">Eres comerciante? ingresa aquí.</string>
-    <string name="btn_link_to_register">No eres miembro? regístrate ahora.</string>
-    <string name="btn_link_to_login">Ya estas registrado? Ingresa.</string>
+    <string name="btn_link_to_login_vendedor">Aún no estás registrado? ingresa aquí.</string>
+    <string name="comerciante_title_reg">Regístrate</string>
     <string name="welcome">Bienvenido</string>
     <string name="btn_logout">Salir</string>
     <string name="name">Nombre</string>
@@ -22,7 +21,8 @@
     <string name="tienda_nombre">Nombre de la tienda</string>
     <string name="tienda_puesto">Puesto</string>
     <string name="tienda_telefono">Teléfono</string>
-    <string name="tienda_categorias">Agregar Categorias</string>
+    <string name="tienda_cat">Ingresa las categorías aquí</string>
+    <string name="tienda_btn_cat">Categorias</string>
     <string name="tienda_btn_crear">Registrar tienda</string>
 
     <string name="oferta_crear">Crear nueva oferta</string>
@@ -45,11 +45,15 @@
     <string name="action_us">Nosotros</string>
     <string name="title_ofertas">Ofertas</string>
     <string name="title_map">Mapa</string>
+    <string name="title_streetv">Street View</string>
     <string name="title_store">Tiendas</string>
     <string name="title_mystore">Mi tienda</string>
     <string name="title_myofertas">Mis Ofertas</string>
     <string name="title_perfil">Perfil</string>
     <string name="title_logout">Cerrar Sesión</string>
+
+    <string name="galeria_enc">Encargado</string>
+    <string name="galeria_cat">Categorías</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -57,7 +61,6 @@
     <string name="title_activity_gamarra_maps">Map</string>
     <string name="title_activity_home_comerciante">Gamarra Store</string>
 
-    <string name="action_settings">Settings</string>
     <string name="title_activity_gamarra_ubi">Map</string>
     <string name="title_activity_scrolling_galeria">Detalles de galería</string>
     <string name="large_text">

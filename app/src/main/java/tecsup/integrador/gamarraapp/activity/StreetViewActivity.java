@@ -3,6 +3,8 @@ package tecsup.integrador.gamarraapp.activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.google.android.gms.maps.OnStreetViewPanoramaReadyCallback;
 import com.google.android.gms.maps.StreetViewPanorama;
@@ -17,10 +19,14 @@ public class StreetViewActivity extends AppCompatActivity {
 
     private static final String TAG = StreetViewActivity.class.getSimpleName();
 
+    private ImageButton btnBack;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_street_view);
+
+        btnBack = (ImageButton) findViewById(R.id.btnBack);
 
         String latitud = getIntent().getExtras().getString("latitudSV", "-12.063824839080928");
         String longitud = getIntent().getExtras().getString("longitudSV", "-77.01443206518888");
@@ -46,5 +52,13 @@ public class StreetViewActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+        // Back button
+        btnBack.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 }

@@ -96,12 +96,7 @@ public class ProductosAdapterActivity extends RecyclerView.Adapter<ProductosAdap
                 productDetails.setText(producto.getDescripcion());
                 productPrice.setText("S/. "+ producto.getPrecio());
 
-                store.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        activity.finish();
-                    }
-                });
+                store.setVisibility(View.GONE);
 
                 close.setOnClickListener(new View.OnClickListener() {
                     @Override

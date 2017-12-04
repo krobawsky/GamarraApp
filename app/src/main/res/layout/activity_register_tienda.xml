@@ -17,7 +17,7 @@
         android:layout_alignParentTop="true"
         android:background="@color/back"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="5dp">
 
         <ImageButton
             android:id="@+id/btnBack"
@@ -71,8 +71,8 @@
                 android:hint="@string/tienda_nombre"
                 android:inputType="text"
                 android:padding="10dp"
-                android:textColor="@color/green"
-                android:textColorHint="@color/input_login_hint" />
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimary" />
 
             <EditText
                 android:id="@+id/txtPhone"
@@ -84,8 +84,8 @@
                 android:inputType="phone"
                 android:maxLength="9"
                 android:padding="10dp"
-                android:textColor="@color/green"
-                android:textColorHint="@color/input_login_hint" />
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimary" />
 
             <EditText
                 android:id="@+id/txtPuesto"
@@ -96,8 +96,8 @@
                 android:hint="@string/tienda_puesto"
                 android:inputType="text"
                 android:padding="10dp"
-                android:textColor="@color/green"
-                android:textColorHint="@color/input_login_hint" />
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimary" />
 
             <!-- Next Steep Button -->
 

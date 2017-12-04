@@ -1,6 +1,9 @@
 package tecsup.integrador.gamarraapp.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
@@ -10,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +28,9 @@ import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.firebase.jobdispatcher.Trigger;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -41,17 +48,31 @@ import layout.MapFragment;
 import layout.PerfilFragment;
 import layout.OfertasFragment;
 import layout.TiendasFragment;
+import retrofit2.Call;
+import retrofit2.Callback;
 import tecsup.integrador.gamarraapp.R;
 
-import tecsup.integrador.gamarraapp.helper.SessionManager;
+import tecsup.integrador.gamarraapp.services.MyJobService;
+import tecsup.integrador.gamarraapp.servicios.ApiService;
+import tecsup.integrador.gamarraapp.servicios.ApiServiceGenerator;
+import tecsup.integrador.gamarraapp.servicios.ResponseMessage;
 
 public class UserActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, NavigationView.OnNavigationItemSelectedListener {
+
+    private static final String TAG = UserActivity.class.getSimpleName();
+
+    // SharedPreferences
+    private SharedPreferences sharedPreferences;
+    private String usuario_id;
+
+    private ApiService service;
 
     private ImageView photoImageView;
     private TextView txtName;
     private TextView txtEmail;
 
     //Datos
+    private String user_id;
     private String email;
     private String name;
     private String photo = "0";
@@ -60,15 +81,14 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private ProfileTracker profileTracker;
 
-    private SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_usuario);
 
-        // session manager
-        session = new SessionManager(getApplicationContext());
+        // init SharedPreferences
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         //Menu
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -93,6 +113,11 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
         photoImageView = (ImageView) hView.findViewById(R.id.imageView);
         txtName = (TextView) hView.findViewById(R.id.name);
         txtEmail = (TextView) hView.findViewById(R.id.email);
+
+        initialize();
+    }
+
+    public void initialize(){
 
         //Google
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -130,6 +155,16 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
             }
         }
 
+        // FirebaseJobDispatcher configuration
+        FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(UserActivity.this));
+        dispatcher.mustSchedule(
+                dispatcher.newJobBuilder()
+                        .setService(MyJobService.class)
+                        .setTag("MyJobService")
+                        .setRecurring(true)
+                        .setTrigger(Trigger.executionWindow(1, 5)) // Cada 5 a 30 segundos
+                        .build()
+        );
     }
 
     //<------------------------------ Google -------------------------------------->//
@@ -156,6 +191,8 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
         if (result.isSuccess()) {
 
             GoogleSignInAccount account = result.getSignInAccount();
+
+            user_id = account.getId();
             email = account.getEmail();
             name = account.getDisplayName();
 
@@ -166,7 +203,9 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
                 photo = account.getPhotoUrl().toString();
             }
 
+            Log.d(TAG, "user_id: " + user_id);
 
+            newUser(user_id, email, name);
         }
     }
 
@@ -174,7 +213,6 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
-
 
     //<------------------------------------- Facebook ---------------------->
 
@@ -205,6 +243,8 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     private void displayProfileInfo(Profile profile) {
+
+        user_id = profile.getId();
         name = profile.getName();
         photo = profile.getProfilePictureUri(100, 100).toString();
 
@@ -212,6 +252,10 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
         Glide.with(getApplicationContext())
                 .load(photo)
                 .into(photoImageView);
+
+        Log.d(TAG, "user_id: " + user_id);
+
+        newUser(user_id, email, name);
     }
 
     @Override
@@ -219,6 +263,61 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
         super.onDestroy();
 
         profileTracker.stopTracking();
+    }
+
+    //<----------------------------- Verificar Login ---------------------->
+
+    public void newUser(final String id, final String email, final String name){
+
+        String userid = sharedPreferences.getString("user_id", "123");
+        Log.d(TAG, "user_id: " + user_id);
+
+        if (userid.equalsIgnoreCase(id)){
+            //Toast.makeText(UserActivity.this, "Bienvenido "+name, Toast.LENGTH_LONG).show();
+
+        } else {
+            // Save to SharedPreferences
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("islogged", true).commit();
+            editor.putString("user_id", user_id).commit();
+
+            service = ApiServiceGenerator.createService(ApiService.class);
+            Call<ResponseMessage> call = service.createUser(id, email, name);
+
+            call.enqueue(new Callback<ResponseMessage>() {
+                @Override
+                public void onResponse(Call<ResponseMessage> call, retrofit2.Response<ResponseMessage> response) {
+                    try {
+
+                        int statusCode = response.code();
+                        Log.d(TAG, "HTTP status code: " + statusCode);
+
+                        if (response.isSuccessful()) {
+
+                            ResponseMessage responseMessage = response.body();
+                            Log.d(TAG, "responseMessage: " + responseMessage);
+
+                        } else {
+                            Log.e(TAG, "onError: " + response.errorBody().string());
+                            throw new Exception("Error en el servicio");
+                        }
+
+                    } catch (Throwable t) {
+                        try {
+                            Log.e(TAG, "onThrowable: " + t.toString(), t);
+                            //Toast.makeText(UserActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                        } catch (Throwable x) {
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseMessage> call, Throwable t) {
+                    Log.e(TAG, "onFailure: " + t.toString());
+                    //Toast.makeText(UserActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+        }
     }
 
     //<----------------------------- Nav Drawer ---------------------->
@@ -235,7 +334,7 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.home_usuario, menu);
         return true;
     }
 
@@ -243,7 +342,11 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_us) {
+            Dialog productDialog = new Dialog(UserActivity.this);
+            productDialog.setContentView(R.layout.alert_nosotros);
+            productDialog.show();
+
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -284,8 +387,6 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
             transaction4.commit();
         }else if (id == R.id.nav_logut) {
 
-            session.setLogin(false);
-
             Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
                 @Override
                 public void onResult(@NonNull Status status) {
@@ -307,7 +408,13 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
     //<------------------------------ Cerrar sesión -------------------------------------->//
 
     private void goLogInScreen() {
-        Intent intent = new Intent(this, LoginActivity.class);
+
+        // remove from SharedPreferences
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("islogged", false).commit();
+        editor.putString("user_id", null).commit();
+
+        Intent intent = new Intent(UserActivity.this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

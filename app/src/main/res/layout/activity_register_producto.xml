@@ -18,7 +18,7 @@
         android:layout_alignParentTop="true"
         android:background="@color/back"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="5dp">
 
         <ImageButton
             android:id="@+id/btnBack"
@@ -71,7 +71,7 @@
                 app:ms_baseColor="@color/colorPrimaryDark"
                 app:ms_enableFloatingLabel="true"
                 app:ms_errorColor="@color/colorAccent"
-                app:ms_floatingLabelColor="@color/colorPrimary"
+                app:ms_floatingLabelColor="@color/colorPrimaryDark"
                 app:ms_floatingLabelText="Categoría del producto"
                 app:ms_highlightColor="@color/colorPrimaryDark"
                 app:ms_hint="Escoja una categoría"
@@ -88,8 +88,8 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:padding="10dp"
-                android:textColor="@color/green"
-                android:textColorHint="@color/input_login_hint" />
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimary" />
 
 
             <EditText
@@ -102,8 +102,8 @@
                 android:inputType="numberDecimal"
                 android:maxLines="1"
                 android:padding="10dp"
-                android:textColor="@color/green"
-                android:textColorHint="@color/input_login_hint" />
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimary" />
 
             <EditText
                 android:id="@+id/detalles_input"
@@ -116,8 +116,8 @@
                 android:lines="3"
                 android:maxLength="500"
                 android:padding="10dp"
-                android:textColor="@color/green"
-                android:textColorHint="@color/input_login_hint" />
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/colorPrimary" />
 
 
             <!-- Next Steep Button -->

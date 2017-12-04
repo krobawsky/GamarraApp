@@ -20,7 +20,7 @@
         <menu>
             <item
                 android:id="@+id/nav_perfil"
-                android:icon="@drawable/ic_perfil"
+                android:icon="@drawable/ic_man_user"
                 android:title="@string/title_perfil" />
 
             <item

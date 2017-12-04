@@ -12,122 +12,140 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:fitsSystemWindows="true">
-
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:collapsedTitleTextAppearance="@android:color/transparent"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <RelativeLayout
-                android:id="@+id/relativel"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+
                 <ImageView
-                    android:layout_width="100dp"
+                    android:id="@+id/imageView3"
+                    android:layout_width="80dp"
                     android:layout_height="100dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/img_store2"
-                    android:layout_alignParentBottom="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginBottom="20dp"
-                    android:id="@+id/imageView3" />
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginTop="60dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_store2" />
 
                 <TextView
                     android:id="@+id/txtNumero"
-                    android:text="Numero"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
                     android:layout_alignTop="@+id/imageView3"
-                    android:layout_toEndOf="@+id/imageView3"/>
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@+id/imageView3"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    android:textColor="@color/back"
+                    android:textSize="18dp"
+                    tools:text="Numero" />
 
                 <ImageButton
                     android:id="@+id/sms_btn"
-                    android:backgroundTint="@color/white"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    app:srcCompat="@drawable/ic_sms"
                     style="@style/Widget.AppCompat.ImageButton"
-                    android:layout_alignTop="@+id/imageView3"
-                    android:layout_toEndOf="@+id/txtNumero" />
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignTop="@+id/call_btn"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toStartOf="@+id/call_btn"
+                    android:backgroundTint="@android:color/transparent"
+                    app:srcCompat="@drawable/ic_sms" />
 
                 <ImageButton
                     android:id="@+id/call_btn"
-                    android:backgroundTint="@color/white"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    app:srcCompat="@drawable/ic_call"
                     style="@style/Widget.AppCompat.ImageButton"
-                    android:layout_alignTop="@+id/sms_btn"
-                    android:layout_toEndOf="@+id/sms_btn" />
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignTop="@+id/add_btn"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toStartOf="@+id/add_btn"
+                    android:backgroundTint="@android:color/transparent"
+                    app:srcCompat="@drawable/ic_call" />
 
                 <ImageButton
                     android:id="@+id/add_btn"
-                    android:backgroundTint="@color/white"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    app:srcCompat="@drawable/ic_create"
                     style="@style/Widget.AppCompat.ImageButton"
-                    android:layout_alignTop="@+id/sms_btn"
-                    android:layout_toEndOf="@+id/call_btn" />
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignBottom="@+id/txtNumero"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp"
+                    android:backgroundTint="@android:color/transparent"
+                    app:srcCompat="@drawable/ic_create" />
 
                 <TextView
-                    android:textColor="#fff"
-                    android:text="Ubicacion"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    android:id="@+id/txtUbicacion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
                     android:layout_below="@+id/txtNumero"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_toEndOf="@+id/imageView3"
-                    android:id="@+id/txtUbicacion" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    android:textColor="@color/back"
+                    android:textSize="14dp"
+                    tools:text="Ubicacion" />
 
                 <TextView
-                    android:textColor="#fff"
                     android:id="@+id/txtPuesto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtUbicacion"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@+id/imageView3"
                     android:text="Puesto"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_below="@+id/txtUbicacion"
-                    android:layout_toEndOf="@+id/imageView3" />
+                    android:textColor="@color/back"
+                    android:textSize="14dp" />
 
             </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/scrim"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                android:title="Tittle"
                 app:layout_collapseMode="pin"
-                />
+                app:popupTheme="@style/AppBaseTheme">
+
+            </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/floatingBtnMap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:srcCompat="@drawable/ic_map_white" />
 
-    <include layout="@layout/content_scrolling_galeria" />
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_scrolling_galeria" />
 
 </android.support.design.widget.CoordinatorLayout>
