@@ -6,10 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -74,7 +72,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState);
 
         categoriaBtn = (Button) view.findViewById(R.id.btnCategoria);
-
         categoriaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,20 +79,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-        initialize();
-    }
-
-    private void initialize() {
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
-                    .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
-        enableMyLocation();
-    }
-
-
-    private void enableMyLocation() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
             if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
@@ -106,6 +89,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         getActivity(), new String[] { android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION }, 1222);
             }
         }
+
+        initialize();
+    }
+
+    private void initialize() {
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                    .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
     }
 
     @Override
@@ -120,7 +113,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         float zoomlevel = 16;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(gamarra, zoomlevel));
 
-        mMap.addPolyline(new PolylineOptions().geodesic(true).width(4).color(R.color.colorPrimaryDark)
+        mMap.addPolyline(new PolylineOptions().geodesic(true).width(4).color(getResources().getColor(R.color.colorPrimary1))
                 .add(new LatLng(-12.061628, -77.018032))  // 1
                 .add(new LatLng(-12.068700, -77.017075))  // 2
                 .add(new LatLng(-12.068641, -77.016098))  // 3
@@ -149,48 +142,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                         for (Tienda tienda : tiendas) {
 
-                            double latitudDouble = Double.parseDouble(tienda.getLatitud());
-                            double longitudDouble = Double.parseDouble(tienda.getLongitud());
+                            double latitudDouble = Double.valueOf(tienda.getLatitud());
+                            double longitudDouble = Double.valueOf(tienda.getLongitud());
                             Log.d(TAG, "LatLng: " + latitudDouble + " , " + longitudDouble);
 
                             LatLng gamarraTienda = new LatLng(latitudDouble, longitudDouble);
                             mMap.addMarker(new MarkerOptions().position(gamarraTienda).
                                     title(tienda.getNombre()).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marcador)));
                         }
-
-                        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                            @Override
-                            public boolean onMarkerClick(final Marker marker) {
-                                final String title = marker.getTitle();
-                                Snackbar snackbar = Snackbar
-                                        .make(getView().findViewById(R.id.map), "Ver mas detalles de " + title, Snackbar.LENGTH_LONG)
-                                        .setAction("Ver", new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View view) {
-                                                for (Tienda tienda : tiendas) {
-
-                                                    if (tienda.getNombre().equalsIgnoreCase(title)) {
-                                                        Log.d(TAG, "marker_id: " + tienda.getId());
-                                                        Intent intent = new Intent(getActivity(), ScrollingGaleriaActivity.class);
-                                                        intent.putExtra("ID", tienda.getId());
-                                                        intent.putExtra("nombre", tienda.getNombre());
-                                                        intent.putExtra("telefono", tienda.getTelefono());
-                                                        intent.putExtra("ubicacion", tienda.getUbicacion());
-                                                        intent.putExtra("puesto", tienda.getPuesto());
-                                                        intent.putExtra("latitud", tienda.getLatitud());
-                                                        intent.putExtra("longitud", tienda.getLongitud());
-                                                        intent.putExtra("encargado_id", tienda.getComerciante_id());
-                                                        startActivity(intent);
-                                                    }
-                                                }
-                                            }
-                                        });
-
-                                snackbar.show();
-
-                                return false;
-                            }
-                        });
 
 
                     } else {
@@ -221,6 +180,41 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 customtoast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL,0, 0);
                 customtoast.setDuration(Toast.LENGTH_LONG);
                 customtoast.show();
+            }
+        });
+
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(final Marker marker) {
+                final String title = marker.getTitle();
+                Snackbar snackbar = Snackbar
+                        .make(getView().findViewById(R.id.map), "Ver mas detalles de " + title, Snackbar.LENGTH_LONG)
+                        .setAction("Ver", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                for (Tienda tienda : tiendas) {
+
+                                    if (tienda.getNombre().equalsIgnoreCase(title)) {
+                                        Log.d(TAG, "marker_id: " + tienda.getId());
+                                        Intent intent = new Intent(getActivity(), ScrollingGaleriaActivity.class);
+                                        intent.putExtra("ID", tienda.getId());
+                                        intent.putExtra("nombre", tienda.getNombre());
+                                        intent.putExtra("telefono", tienda.getTelefono());
+                                        intent.putExtra("ubicacion", tienda.getUbicacion());
+                                        intent.putExtra("puesto", tienda.getPuesto());
+                                        intent.putExtra("latitud", tienda.getLatitud());
+                                        intent.putExtra("longitud", tienda.getLongitud());
+                                        intent.putExtra("encargado_id", tienda.getComerciante_id());
+                                        startActivity(intent);
+                                    }
+                                }
+                            }
+                        });
+
+                snackbar.show();
+
+                return false;
             }
         });
 
@@ -301,7 +295,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                                     mMap.clear();
 
-                                    mMap.addPolyline(new PolylineOptions().geodesic(true).width(4).color(R.color.colorPrimaryDark)
+                                    mMap.addPolyline(new PolylineOptions().geodesic(true).width(4).color(getResources().getColor(R.color.colorPrimary1))
                                             .add(new LatLng(-12.061628, -77.018032))  // 1
                                             .add(new LatLng(-12.068700, -77.017075))  // 2
                                             .add(new LatLng(-12.068641, -77.016098))  // 3
@@ -370,7 +364,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                 mMap.clear();
 
-                mMap.addPolyline(new PolylineOptions().geodesic(true).width(4).color(R.color.colorPrimaryDark)
+                mMap.addPolyline(new PolylineOptions().geodesic(true).width(4).color(getResources().getColor(R.color.colorPrimary1))
                         .add(new LatLng(-12.061628, -77.018032))  // 1
                         .add(new LatLng(-12.068700, -77.017075))  // 2
                         .add(new LatLng(-12.068641, -77.016098))  // 3
@@ -386,8 +380,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                 for (Tienda tienda : tiendas) {
 
-                    double latitudDouble = Double.parseDouble(tienda.getLatitud());
-                    double longitudDouble = Double.parseDouble(tienda.getLongitud());
+                    double latitudDouble = Double.valueOf(tienda.getLatitud());
+                    double longitudDouble = Double.valueOf(tienda.getLongitud());
                     Log.d(TAG, "LatLng: " + latitudDouble + " , " + longitudDouble);
 
                     LatLng gamarraTienda = new LatLng(latitudDouble, longitudDouble);

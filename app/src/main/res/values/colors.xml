@@ -5,10 +5,13 @@
     <color name="white">#FFFFFF</color>
     <color name="colorNav3">#474747</color>
 
-
     <color name="colorPrimary">#4CAF50</color>
     <color name="colorPrimaryDark">#388E3C</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="colorPrimaryC">#4FC1F8</color>
+    <color name="colorPrimaryDarkC">#0098A7</color>
+    <color name="colorAccentC">#EFFB41</color>
 
     <color name="lightorange">#C8E6C9</color>
     <color name="primary_text">#212121</color>

@@ -10,6 +10,8 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +28,8 @@ public class PerfilFragment extends Fragment {
     private TextView txtMail;
     private TextView txtDni;
 
+    Animation uptowndown, downtoup;
+
     public PerfilFragment() {
         // Required empty public constructor
     }
@@ -41,6 +45,9 @@ public class PerfilFragment extends Fragment {
         txtMail = (TextView) view.findViewById(R.id.email);
         txtDni = (TextView) view.findViewById(R.id.dni);
 
+        uptowndown = AnimationUtils.loadAnimation(getActivity(),R.anim.uptodown);
+        downtoup = AnimationUtils.loadAnimation(getActivity(),R.anim.downtoup);
+
         Bundle args = getArguments();
         String photoUrl = args.getString("photo", "No photo");
         String name = args.getString("name", "No name");
@@ -49,17 +56,23 @@ public class PerfilFragment extends Fragment {
 
         if (photoUrl != "0"){
             Glide.with(getActivity()).load(photoUrl).into(imageView);
+            imageView.setAnimation(uptowndown);
         } else {
             imageView.getResources().getDrawable(R.drawable.img_hombre);
+            imageView.setAnimation(uptowndown);
         }
 
         if (dni != "No dni"){
             txtDni.setText("DNI: "+dni);
             txtDni.setVisibility(View.VISIBLE);
+            txtDni.setAnimation(downtoup);
         }
 
         txtName.setText(name);
         txtMail.setText(email);
+
+        txtName.setAnimation(downtoup);
+        txtMail.setAnimation(downtoup);
 
         return view;
     }

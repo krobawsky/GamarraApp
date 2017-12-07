@@ -52,6 +52,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import tecsup.integrador.gamarraapp.R;
 
+import tecsup.integrador.gamarraapp.helper.SessionManager;
 import tecsup.integrador.gamarraapp.services.MyJobService;
 import tecsup.integrador.gamarraapp.servicios.ApiService;
 import tecsup.integrador.gamarraapp.servicios.ApiServiceGenerator;
@@ -61,6 +62,7 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private static final String TAG = UserActivity.class.getSimpleName();
 
+    private SessionManager session;
     // SharedPreferences
     private SharedPreferences sharedPreferences;
     private String usuario_id;
@@ -88,7 +90,8 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
         setContentView(R.layout.activity_home_usuario);
 
         // init SharedPreferences
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);// session manager
+        session = new SessionManager(getApplicationContext());
 
         //Menu
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -156,15 +159,17 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
         }
 
         // FirebaseJobDispatcher configuration
+
         FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(UserActivity.this));
         dispatcher.mustSchedule(
                 dispatcher.newJobBuilder()
                         .setService(MyJobService.class)
                         .setTag("MyJobService")
                         .setRecurring(true)
-                        .setTrigger(Trigger.executionWindow(1, 5)) // Cada 5 a 30 segundos
+                        .setTrigger(Trigger.executionWindow(5, 30)) // Cada 5 a 30 segundos
                         .build()
         );
+
     }
 
     //<------------------------------ Google -------------------------------------->//
@@ -192,7 +197,7 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
 
             GoogleSignInAccount account = result.getSignInAccount();
 
-            user_id = account.getId();
+            //user_id = account.getId();
             email = account.getEmail();
             name = account.getDisplayName();
 
@@ -203,9 +208,15 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
                 photo = account.getPhotoUrl().toString();
             }
 
-            Log.d(TAG, "user_id: " + user_id);
+            // Save to SharedPreferences
+            /*
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("islogged", true).commit();
+            editor.putString("user_id", user_id).commit();
 
-            newUser(user_id, email, name);
+            Log.d(TAG, "user_id: " + user_id);
+            */
+            //newUser(user_id, email, name);
         }
     }
 
@@ -236,6 +247,7 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
         parameters.putString("fields", "id, first_name, last_name, email, gender, birthday, location");
         request.setParameters(parameters);
         request.executeAsync();
+
     }
 
     private void setEmail(String email) {
@@ -244,7 +256,7 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private void displayProfileInfo(Profile profile) {
 
-        user_id = profile.getId();
+        //user_id = profile.getId();
         name = profile.getName();
         photo = profile.getProfilePictureUri(100, 100).toString();
 
@@ -253,9 +265,16 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
                 .load(photo)
                 .into(photoImageView);
 
-        Log.d(TAG, "user_id: " + user_id);
 
-        newUser(user_id, email, name);
+        // Save to SharedPreferences
+        /*
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("islogged", true).commit();
+        editor.putString("user_id", user_id).commit();
+
+        Log.d(TAG, "user_id: " + user_id);
+        */
+        //newUser(user_id, email, name);
     }
 
     @Override
@@ -276,11 +295,6 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
             //Toast.makeText(UserActivity.this, "Bienvenido "+name, Toast.LENGTH_LONG).show();
 
         } else {
-            // Save to SharedPreferences
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("islogged", true).commit();
-            editor.putString("user_id", user_id).commit();
-
             service = ApiServiceGenerator.createService(ApiService.class);
             Call<ResponseMessage> call = service.createUser(id, email, name);
 
@@ -387,6 +401,7 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
             transaction4.commit();
         }else if (id == R.id.nav_logut) {
 
+            LoginManager.getInstance().logOut();
             Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
                 @Override
                 public void onResult(@NonNull Status status) {
@@ -396,7 +411,7 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
                 }
             });
 
-            LoginManager.getInstance().logOut();
+            session.setLogin(false);
             goLogInScreen();
         }
 
@@ -408,11 +423,6 @@ public class UserActivity extends AppCompatActivity implements GoogleApiClient.O
     //<------------------------------ Cerrar sesión -------------------------------------->//
 
     private void goLogInScreen() {
-
-        // remove from SharedPreferences
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("islogged", false).commit();
-        editor.putString("user_id", null).commit();
 
         Intent intent = new Intent(UserActivity.this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

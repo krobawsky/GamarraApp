@@ -26,6 +26,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -82,6 +84,8 @@ public class ScrollingGaleriaActivity extends AppCompatActivity {
     private ApiService service;
     private boolean appBarExpanded = true;
 
+    Animation uptowndown, downtoup;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +101,9 @@ public class ScrollingGaleriaActivity extends AppCompatActivity {
         btnCat = (ImageButton) findViewById(R.id.btnCat);
 
         mapFAB = (FloatingActionButton) findViewById(R.id.floatingBtnMap);
+
+        uptowndown = AnimationUtils.loadAnimation(this,R.anim.uptodown);
+        downtoup = AnimationUtils.loadAnimation(this,R.anim.downtoup);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -129,6 +136,7 @@ public class ScrollingGaleriaActivity extends AppCompatActivity {
 
         productosList.setLayoutManager(new LinearLayoutManager(this));
         productosList.setAdapter(new ProductosAdapterActivity(this));
+        productosList.setAnimation(downtoup);
 
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipelayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorAccent, R.color.colorPrimaryDark);
@@ -196,6 +204,7 @@ public class ScrollingGaleriaActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.action_dueño:
+                encargado_id = getIntent().getExtras().getString("encargado_id");
                 Comerciante(Integer.parseInt(encargado_id));
                 return true;
         }
@@ -220,7 +229,6 @@ public class ScrollingGaleriaActivity extends AppCompatActivity {
         puestoTienda = getIntent().getExtras().getString("puesto");
         latitudTienda = getIntent().getExtras().getString("latitud");
         longitudTienda = getIntent().getExtras().getString("longitud");
-        encargado_id = getIntent().getExtras().getString("encargado_id");
 
         Log.e(TAG, "tienda_id:" + tienda_id);
 
@@ -229,6 +237,11 @@ public class ScrollingGaleriaActivity extends AppCompatActivity {
         telefonoTxt.setText("Telf: "+telfTienda);
         ubicacionTxt.setText("Ubicación: "+ubiTienda);
         puestoTxt.setText("Puesto: "+puestoTienda);
+
+        telefonoTxt.setAnimation(uptowndown);
+        ubicacionTxt.setAnimation(uptowndown);
+        puestoTxt.setAnimation(uptowndown);
+
 
         mapFAB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -384,8 +397,8 @@ public class ScrollingGaleriaActivity extends AppCompatActivity {
                         TextView userDni = ( TextView ) productDialog.findViewById(R.id.dni);
 
                         userName.setText(usuario.getNombre());
-                        userEmail.setText(usuario.getEmail());
-                        userDni.setText(usuario.getDni());
+                        userEmail.setText("Correo: "+usuario.getEmail());
+                        userDni.setText("DNI: "+usuario.getDni());
 
                         String photoUrl = ApiService.API_BASE_URL + "/perfiles/" + usuario.getImg();
                         Picasso.with(ScrollingGaleriaActivity.this).load(photoUrl).resize(72, 72)

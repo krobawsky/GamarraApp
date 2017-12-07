@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,6 +44,7 @@ import tecsup.integrador.gamarraapp.servicios.ResponseMessage;
 
 public class MiTiendaFragment extends Fragment {
 
+
     public MiTiendaFragment() {
         // Required empty public constructor
     }
@@ -62,6 +65,8 @@ public class MiTiendaFragment extends Fragment {
     private List<Categoria> categorias;
     private MultiAutoCompleteTextView multiCategorias;
 
+    Animation uptowndown, downtoup;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,6 +82,9 @@ public class MiTiendaFragment extends Fragment {
         telfTienda = (TextView) view.findViewById(R.id.telfTienda);
         ubiTienda = (TextView) view.findViewById(R.id.ubiTienda);
         puestoTienda = (TextView) view.findViewById(R.id.puestoTienda);
+
+        uptowndown = AnimationUtils.loadAnimation(getActivity(),R.anim.uptodown);
+        downtoup = AnimationUtils.loadAnimation(getActivity(),R.anim.downtoup);
 
         // Progress dialog
         pDialog = new ProgressDialog(getActivity());
@@ -121,9 +129,14 @@ public class MiTiendaFragment extends Fragment {
                             if (String.valueOf(tienda.getComerciante_id()).equalsIgnoreCase(usuario_id)) {
 
                                 nameTienda.setText(tienda.getNombre());
+                                nameTienda.setAnimation(downtoup);
                                 telfTienda.setText("Telf: "+tienda.getTelefono());
+                                telfTienda.setAnimation(downtoup);
                                 ubiTienda.setText("Ubicación: "+tienda.getUbicacion());
-                                puestoTienda.setText("Puesto: "+tienda.getPuesto());
+                                ubiTienda.setAnimation(downtoup);
+                                puestoTienda.setText("Puesto: " + tienda.getPuesto());
+                                puestoTienda.setAnimation(downtoup);
+
 
                                 categorias = CategoriaRepository.listCategoriasTienda();
                                 Log.d(TAG, "categoriasTiendaORM: " + categorias.toString());

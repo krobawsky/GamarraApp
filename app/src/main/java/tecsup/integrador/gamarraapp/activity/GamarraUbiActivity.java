@@ -4,17 +4,14 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +21,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -110,7 +108,7 @@ public class GamarraUbiActivity extends AppCompatActivity implements GoogleMap.O
         float zoomlevel = 16;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(gamarra, zoomlevel));
 
-        mMap.addPolyline(new PolylineOptions().geodesic(true).width(4).color(R.color.colorPrimaryDark)
+        mMap.addPolyline(new PolylineOptions().geodesic(true).width(4).color(getResources().getColor(R.color.colorPrimary1))
                 .add(new LatLng(-12.061628, -77.018032))  // 1
                 .add(new LatLng(-12.068700, -77.017075))  // 2
                 .add(new LatLng(-12.068641, -77.016098))  // 3
@@ -202,7 +200,7 @@ public class GamarraUbiActivity extends AppCompatActivity implements GoogleMap.O
 
         mMap.clear();
         // Polylines are useful for marking paths and routes on the map.
-        mMap.addPolyline(new PolylineOptions().geodesic(true).width(2).color(Color.RED)
+        mMap.addPolyline(new PolylineOptions().geodesic(true).width(2).color(getResources().getColor(R.color.colorPrimary1))
                 .add(new LatLng(-12.061628, -77.018032))  // 1
                 .add(new LatLng(-12.068700, -77.017075))  // 2
                 .add(new LatLng(-12.068641, -77.016098))  // 3
@@ -218,7 +216,8 @@ public class GamarraUbiActivity extends AppCompatActivity implements GoogleMap.O
 
         mMap.addMarker(new MarkerOptions()
                 .position(point)
-                .title("Tu tienda"));
+                .title("Tu tienda")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marcador_b)));
 
         latitud = point.latitude;
         longitud = point.longitude;
@@ -234,7 +233,7 @@ public class GamarraUbiActivity extends AppCompatActivity implements GoogleMap.O
 
         mMap.clear();
         // Polylines are useful for marking paths and routes on the map.
-        mMap.addPolyline(new PolylineOptions().geodesic(true).width(2).color(Color.RED)
+        mMap.addPolyline(new PolylineOptions().geodesic(true).width(2).color(getResources().getColor(R.color.colorPrimary1))
                 .add(new LatLng(-12.061628, -77.018032))  // 1
                 .add(new LatLng(-12.068700, -77.017075))  // 2
                 .add(new LatLng(-12.068641, -77.016098))  // 3
@@ -250,7 +249,8 @@ public class GamarraUbiActivity extends AppCompatActivity implements GoogleMap.O
 
         mMap.addMarker(new MarkerOptions()
                 .position(point)
-                .title("Tu tienda"));
+                .title("Tu tienda")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marcador_b)));
 
         latitud = point.latitude;
         longitud = point.longitude;

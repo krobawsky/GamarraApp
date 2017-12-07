@@ -61,33 +61,33 @@
                     style="@style/Widget.AppCompat.ImageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorAccent"
-                    app:srcCompat="@drawable/ic_camera"
-                    android:onClick="takePicture"
                     android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/imgPerfil" />
+                    android:layout_toEndOf="@+id/imgPerfil"
+                    android:backgroundTint="@color/colorAccent"
+                    android:onClick="takePicture"
+                    app:srcCompat="@drawable/ic_camera" />
 
                 <ImageButton
                     style="@style/Widget.AppCompat.ImageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorAccent"
-                    app:srcCompat="@drawable/ic_insert_photo"
-                    android:onClick="galleryPicture"
                     android:layout_alignParentTop="true"
-                    android:layout_toStartOf="@+id/imgPerfil" />
+                    android:layout_toStartOf="@+id/imgPerfil"
+                    android:backgroundTint="@color/colorAccent"
+                    android:onClick="galleryPicture"
+                    app:srcCompat="@drawable/ic_insert_photo" />
 
                 <!-- Imagen de perfil -->
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imgPerfil"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
                     android:scaleType="centerCrop"
                     android:src="@drawable/img_hombre"
                     app:civ_border_color="@color/colorAccent"
-                    app:civ_border_width="1dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true" />
+                    app:civ_border_width="1dp" />
 
 
             </RelativeLayout>
@@ -102,7 +102,7 @@
                 android:inputType="textCapWords"
                 android:padding="10dp"
                 android:singleLine="true"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimary1"
                 android:textColorHint="@color/colorPrimary" />
 
             <EditText
@@ -116,7 +116,7 @@
                 android:maxLength="8"
                 android:padding="10dp"
                 android:singleLine="true"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimary1"
                 android:textColorHint="@color/colorPrimary" />
 
             <EditText
@@ -129,7 +129,7 @@
                 android:inputType="textEmailAddress"
                 android:padding="10dp"
                 android:singleLine="true"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimary1"
                 android:textColorHint="@color/colorPrimary" />
 
             <EditText
@@ -142,7 +142,7 @@
                 android:inputType="textPassword"
                 android:padding="10dp"
                 android:singleLine="true"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimary1"
                 android:textColorHint="@color/colorPrimary" />
 
             <EditText
@@ -155,7 +155,7 @@
                 android:inputType="textPassword"
                 android:padding="10dp"
                 android:singleLine="true"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimary1"
                 android:textColorHint="@color/colorPrimary" />
 
             <!-- Login Button -->

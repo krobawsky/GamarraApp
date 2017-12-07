@@ -1,14 +1,13 @@
 package tecsup.integrador.gamarraapp.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -19,7 +18,6 @@ import tecsup.integrador.gamarraapp.R;
 import tecsup.integrador.gamarraapp.models.Categoria;
 import tecsup.integrador.gamarraapp.models.Categoria2;
 import tecsup.integrador.gamarraapp.models.CategoriaRepository;
-import tecsup.integrador.gamarraapp.models.tiendaCategoria;
 import tecsup.integrador.gamarraapp.servicios.ApiService;
 import tecsup.integrador.gamarraapp.servicios.ApiServiceGenerator;
 

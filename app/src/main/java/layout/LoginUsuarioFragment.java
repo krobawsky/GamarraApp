@@ -31,6 +31,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import tecsup.integrador.gamarraapp.R;
 import tecsup.integrador.gamarraapp.activity.UserActivity;
+import tecsup.integrador.gamarraapp.helper.SessionManager;
 
 public class LoginUsuarioFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -47,6 +48,8 @@ public class LoginUsuarioFragment extends Fragment implements GoogleApiClient.On
     private LoginButton loginButton;
     private CallbackManager callbackManager;
 
+    private SessionManager session;
+
     Animation downtoup;
 
     @Override
@@ -54,6 +57,9 @@ public class LoginUsuarioFragment extends Fragment implements GoogleApiClient.On
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login_usuario, container, false);
+
+        // session manager
+        session = new SessionManager(getActivity().getApplicationContext());
 
         //Google
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -140,6 +146,9 @@ public class LoginUsuarioFragment extends Fragment implements GoogleApiClient.On
         customtoast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL,0, 0);
         customtoast.setDuration(Toast.LENGTH_LONG);
         customtoast.show();
+
+        //Session
+        session.setLogin(true);
 
         // Launch home_usuario activity
         Intent intent = new Intent(getActivity().getApplicationContext(), UserActivity.class);

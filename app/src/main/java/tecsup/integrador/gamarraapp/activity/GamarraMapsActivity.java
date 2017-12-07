@@ -90,7 +90,7 @@ public class GamarraMapsActivity extends AppCompatActivity implements OnMapReady
         float zoomlevel = 16;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(gamarra, zoomlevel));
 
-        mMap.addPolyline(new PolylineOptions().geodesic(true).width(4).color(R.color.colorPrimaryDark)
+        mMap.addPolyline(new PolylineOptions().geodesic(true).width(4).color(getResources().getColor(R.color.colorPrimary1))
                 .add(new LatLng(-12.061628, -77.018032))  // 1
                 .add(new LatLng(-12.068700, -77.017075))  // 2
                 .add(new LatLng(-12.068641, -77.016098))  // 3

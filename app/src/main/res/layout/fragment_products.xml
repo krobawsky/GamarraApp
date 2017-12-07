@@ -15,27 +15,26 @@
         <SearchView
             android:id="@+id/productos_sv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toStartOf="@+id/listbtn" />
+            android:layout_height="wrap_content" />
 
         <ImageButton
             android:id="@+id/btnCat"
             style="@style/Widget.AppCompat.ImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            fab:srcCompat="@drawable/ic_list"
             android:layout_above="@+id/swipelayout"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true" />
+            android:layout_alignParentTop="true"
+            android:backgroundTint="@color/white"
+            fab:srcCompat="@drawable/ic_list" />
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipelayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/productos_sv"
+            android:layout_above="@+id/btnCategoria"
             android:layout_alignParentStart="true"
-            android:layout_above="@+id/btnCategoria">
+            android:layout_below="@+id/productos_sv">
 
             <ScrollView
                 android:layout_width="wrap_content"
@@ -43,10 +42,10 @@
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/productos_rv"
-                    android:layout_height="match_parent"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"/>
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp" />
 
             </ScrollView>
 

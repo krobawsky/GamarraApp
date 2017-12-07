@@ -1,55 +1,25 @@
 package tecsup.integrador.gamarraapp.activity;
 
-import android.Manifest;
-import android.app.FragmentTransaction;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Environment;
-import android.preference.PreferenceManager;
-import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
-import layout.MisOfertasFragment;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import tecsup.integrador.gamarraapp.R;
-import tecsup.integrador.gamarraapp.models.Categoria;
 import tecsup.integrador.gamarraapp.models.Categoria2;
 import tecsup.integrador.gamarraapp.models.CategoriaRepository;
-import tecsup.integrador.gamarraapp.models.Tienda;
-import tecsup.integrador.gamarraapp.servicios.ApiService;
-import tecsup.integrador.gamarraapp.servicios.ApiServiceGenerator;
-import tecsup.integrador.gamarraapp.servicios.ResponseMessage;
 
 public class RegisterProductoActivity extends AppCompatActivity {
 

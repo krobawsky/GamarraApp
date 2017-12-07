@@ -7,19 +7,20 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.animation.Animation;
 
 import layout.LoginComercianteFragment;
 import layout.LoginUsuarioFragment;
 import tecsup.integrador.gamarraapp.R;
 import tecsup.integrador.gamarraapp.adapter.SectionsPageAdapter;
+import tecsup.integrador.gamarraapp.helper.SessionManager;
 
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
 
     private SharedPreferences sharedPreferences;
+    private SessionManager session;
 
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
@@ -33,21 +34,18 @@ public class LoginActivity extends AppCompatActivity {
 
         // init SharedPreferences
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        // session manager
+        session = new SessionManager(getApplicationContext());
 
         // islogged remember
         if(sharedPreferences.getBoolean("islogged", false)){
+            goComerciante();
+        }
 
-            String user_id = sharedPreferences.getString("user_id", null);
-            String id = sharedPreferences.getString("id", null);
-
-            Log.d(TAG, "usuario_id: " + id);
-            Log.d(TAG, "user_id: " + user_id);
-
-            if (id != null){
-                goComerciante();
-            } else if (user_id != null){
-                goUser();
-            }
+        // Check if user is already logged in or not
+        if (session.isLoggedIn()) {
+            // User is already logged in. Take him to main activity
+            goUser();
         }
 
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());

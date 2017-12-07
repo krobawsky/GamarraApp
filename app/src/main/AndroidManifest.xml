@@ -74,7 +74,7 @@
 
         <activity
             android:name=".activity.GamarraMapsActivity"
-            android:label="@string/title_activity_gamarra_maps" />
+            android:label="@string/title_activity_gamarra_maps" android:screenOrientation="portrait" />
         <activity android:name=".activity.ProductosActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.StreetViewActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.RegisterUserActivity" android:screenOrientation="portrait" />
@@ -91,7 +91,8 @@
         <activity
             android:name=".activity.ScrollingGaleriaActivity"
             android:label="@string/title_activity_scrolling_galeria"
-            android:theme="@style/AppTheme" android:screenOrientation="portrait"></activity>
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
 
         <!-- Declare MyJobService -->
         <service android:name=".services.MyJobService" android:exported="false">
